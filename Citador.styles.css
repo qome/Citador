@@ -1,7 +1,7 @@
 .citar-btn {
   cursor: pointer;
   margin: 3px 5px;
-  padding: 0 10px;
+  padding: 2px 10px;
   background-color: rgb(10, 10, 10);
   border-radius: 3px;
   transition: all 200ms ease-in-out;
@@ -79,7 +79,8 @@
   to {transform: scale(1);}
 }
 
-.quote-msg .avatar-large:not(.da-large):hover:after {
+.quote-msg .avatar-large:not(.da-large):hover:after,
+.quote-msg .avatar-17mtNa .image-33JSyf:hover:after {
   animation: citador-scale 250ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   animation-fill-mode: forwards;
   transform: scale(0.7);

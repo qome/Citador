@@ -23,7 +23,7 @@ class Citador {
   
   getName         () { return "Citador";            }
   getDescription  () { return this.local.description}
-  getVersion      () { return "1.7.7";              }
+  getVersion      () { return "1.7.8";              }
   getAuthor       () { return "Nirewen";            }
   unload          () { this.deleteEverything();     }
   stop            () { this.deleteEverything();     }
@@ -93,14 +93,45 @@ class Citador {
     this.patchExternalLinks();
     
     $(document).on("mouseover.citador", function(e) {
-      var target = $(e.target);
-      if (target.parents(".message").length > 0) {
-        $('.messages .message-group')
+      let target = $(e.target),
+        classes = {
+          canary: {
+            close_button: 'prepend',
+            group: 'container-1YxwTf',
+            message: 'message-1PNnaP',
+            markup: 'markup-2BOw-j',
+            avatar: 'avatar-17mtNa .image-33JSyf',
+            username: 'username-_4ZSMR',
+            compact: 'containerCompact-3V0ioj',
+            accessory: 'container-1e22Ot',
+            embed: 'embed-IeVjo6',
+            time: 'time:not(.edited-DL9ECl)',
+            edited: 'edited-DL9ECl',
+            option: 'buttonContainer-37UsAw .button-3Jq0g9'
+          },
+          stable: {
+            close_button: 'append',
+            group: 'message-group',
+            message: 'message',
+            markup: 'markup',
+            avatar: 'avatar-large:not(.da-large)',
+            username: 'user-name',
+            compact: 'compact',
+            accessory: 'accessory',
+            embed: 'embed-IeVjo6',
+            time: '.timestamp',
+            edited: 'edited',
+            option: 'btn-option'
+          }
+        }[DiscordNative.globals.releaseChannel];
+      
+      if (target.parents(`.${classes.message}`).length > 0) {
+        $(`.messages .${classes.group}`)
           .on('mouseover', function() {
             if ($(this).find('.citar-btn').length == 0) {
-              $('.messages .message-group').hasClass('compact') 
-                ? $(this).find('.timestamp').first().prepend('<span class="citar-btn"></span>') 
-                : $(this).find($('.messages .message-group .comment .body h2')).append('<span class="citar-btn"></span>');
+              $(`.messages .${classes.group}`).hasClass(classes.compact) 
+                ? $(this).find(classes.time).first().prepend('<span class="citar-btn"></span>') 
+                : $(this).find(classes.time).append('<span class="citar-btn"></span>');
                 
               new PluginTooltip.Tooltip($(this).find('.citar-btn'), self.local.quoteTooltip);
               $(this).find('.citar-btn')
@@ -108,16 +139,9 @@ class Citador {
                 .click(function() {
                   self.attachParser();
                   
-                  let message   = $(this).parents('.message-group'), range;
+                  let message = $(this).parents(`.${classes.group}`);
                   
                   self.quoteProps = $.extend(true, {}, ReactUtilities.getOwnerInstance(message[0]).props);
-                    
-                  if (window.getSelection && window.getSelection().rangeCount > 0)
-                    range = window.getSelection().getRangeAt(0);
-                  else if (document.selection && document.selection.type !== 'Control')
-                    range = document.selection.createRange();
-                    
-                  var thisPost = $(this).closest('.comment');
                   
                   this.createQuote = function() {
                     var messageElem = $(message).clone().hide().appendTo(".quote-msg");
@@ -125,75 +149,42 @@ class Citador {
                     
                     $('.quote-msg').find('.citar-btn').toggleClass('hidden');
                     
-                    $('.quote-msg').find('.embed').each(function() {
-                      $(this).closest('.accessory').remove();
+                    $('.quote-msg').find(`.${classes.embed}`).each(function() {
+                      $(this).closest(`.${classes.accessory}`).remove();
                     });
                     
-                    $('.quote-msg').find('.markup').each(function() {
-                      if (0 === $(this).text().length + $(this).children().length + $(this).closest(".message").find('.accessory').length) {
-                        $(this).closest('.message-text').remove();
-                      }
-                    });
-                    $('.quote-msg').find('.message-content').each(function() {
-                      if (0 === $(this).text().length + $(this).children().length + $(this).closest(".message").find('.accessory').length) {
-                        $(this).closest('.message-text').remove();
+                    $('.quote-msg').find(`.${classes.markup}`).each(function() {
+                      let index = $(`.quote-msg .${classes.message}`).index($(`.quote-msg .${classes.message}`).has(this));
+                      if (0 === self.quoteProps.messages[index].content.length + $(this).closest(`.${classes.message}`).find(`.${classes.accessory}`).length) {
+                        self.removeQuoteAtIndex(index);
                       }
                     });
 
-                    $('.quote-msg').find('.markup').before('<div class="delete-msg-btn"></div>');
-                    $('.quote-msg').find('.edited, .btn-option, .btn-reaction').remove();
+                    $('.quote-msg').find(`.${classes.markup}`).before('<div class="delete-msg-btn"></div>');
+                    $('.quote-msg').find(`.${classes.edited}, .${classes.option}, .btn-reaction`).remove();
                     
-                    $('.quote-msg .message-group').append('<div class="quote-close"></div>');
+                    $(`.quote-msg .${classes.group}`)[classes.close_button]('<div class="quote-close"></div>');
                     $('.quote-msg').find('.quote-close').click(() => self.cancelQuote());
                     
                     // define a função de clique, pra deletar uma mensagem que você não deseja citar
                     $('.quote-msg').find('.delete-msg-btn')
                       .click(function() {
-                        self.removeQuoteAtIndex($('.quote-msg .message').index($('.quote-msg .message').has(this)));
+                        self.removeQuoteAtIndex($(`.quote-msg .${classes.message}`).index($(`.quote-msg .${classes.message}`).has(this)));
                       })
                       .each(function() {
                         new PluginTooltip.Tooltip($(this), self.local.deleteTooltip);
                       });
                       
-                    $('.quote-msg').find('.avatar-large:not(.da-large)')
+                    ($(`.messages .${classes.group}`).hasClass(classes.compact) 
+                      ? $('.quote-msg').find(`.${classes.username}`)
+                      : $('.quote-msg').find(`.${classes.avatar}`))
                       .click(function () {self.attachMention(self.quoteProps.messages[0].author)});
                     
                     if (self.settings.mentionUser) {
                       self.attachMention(self.quoteProps.messages[0].author);
                     }
 
-                    if (range) {
-                      var startPost = $(range.startContainer).closest('.message'),
-                        endPost   = $(range.endContainer).closest('.message');
-                        
-                      if (thisPost.has(startPost) && thisPost.has(endPost) && startPost.length && endPost.length) {
-                        var startI   = thisPost.find(".message").index(startPost),
-                          endI     = thisPost.find(".message").index(endPost);
-                        
-                        if(range.startOffset != range.endOffset || startI != endI) {
-                          self.selectionP = {
-                            start: {
-                              index: startI,
-                              offset: range.startOffset
-                            },
-                            end: {
-                              index: endI,
-                              offset: range.endOffset
-                            }
-                          };
-                        
-                          self.quoteProps.messages.forEach((m, i) => {
-                            var msg = $($('.quote-msg .message')[i]).find(".markup");
-                            if(endI == startI) msg.text(m.content.substring(range.startOffset, range.endOffset));
-                            else if(i == startI) msg.text(m.content.substring(range.startOffset));
-                            else if(i == endI) msg.text(m.content.substring(0, range.endOffset));
-                            if(i < startI || i > endI) self.removeQuoteAtIndex(i);
-                          });
-                        }
-                      }
-                    }
-
-                    $('.quote-msg').find(".message")
+                    $('.quote-msg').find(`.${classes.message}`)
                       .on('mouseover.citador', function() {
                         $(this).find('.delete-msg-btn').fadeTo(5, 0.4);
                       })
@@ -213,8 +204,8 @@ class Citador {
                     messageElem.slideDown(150);
                   };
                   
-                  if ($('.quote-msg .message-group').length > 0)
-                    $('.quote-msg .message-group').remove();
+                  if ($(`.quote-msg .${classes.group}`).length > 0)
+                    $(`.quote-msg .${classes.group}`).remove();
                   else
                     $('.channelTextArea-1LDbYG').prepend('<div class="quote-msg"></div>');
                   
@@ -462,12 +453,25 @@ class Citador {
   }
   
   removeQuoteAtIndex(i) {
+    let classes = {
+      canary: {
+        message: 'message-1PNnaP',
+        message_text: 'content-3dzVd8',
+        accessory: 'container-1e22Ot'
+      },
+      stable: {
+        message: 'message',
+        message_text: 'message-text',
+        accessory: 'accessory'
+      }
+    }[DiscordNative.globals.releaseChannel];
+    
     if (this.quoteProps) {
       if (this.quoteProps.messages.filter(m => !m.deleted).length < 2)
         this.cancelQuote();
       else {
-        let deleteMsg = $($('.quote-msg .message')[i]);                
-        deleteMsg.find('.message-text, .accessory').hide();    
+        let deleteMsg = $($(`.quote-msg .${classes.message}`)[i]);                
+        deleteMsg.find(`.${classes.message_text}, .${classes.accessory}`).hide();
         this.quoteProps.messages[i].deleted = true;
       }
     } else
