@@ -23,7 +23,7 @@ class Citador {
   
   getName         () { return "Citador";            }
   getDescription  () { return this.local.description}
-  getVersion      () { return "1.7.9";              }
+  getVersion      () { return "1.7.10";              }
   getAuthor       () { return "Nirewen";            }
   unload          () { this.deleteEverything();     }
   stop            () { this.deleteEverything();     }
@@ -438,16 +438,9 @@ class Citador {
   
   removeQuoteAtIndex(i) {
     let classes = {
-      canary: {
-        message: 'message-1PNnaP',
-        message_text: 'content-3dzVd8',
-        accessory: 'container-1e22Ot'
-      },
-      stable: {
-        message: 'message',
-        message_text: 'message-text',
-        accessory: 'accessory'
-      }
+      message: 'message-1PNnaP',
+      message_text: 'content-3dzVd8',
+      accessory: 'container-1e22Ot'
     }[DiscordNative.globals.releaseChannel];
     
     if (this.quoteProps) {
