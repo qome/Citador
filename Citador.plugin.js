@@ -23,7 +23,7 @@ class Citador {
   
   getName         () { return "Citador";            }
   getDescription  () { return this.local.description}
-  getVersion      () { return "1.7.11";             }
+  getVersion      () { return "1.7.12";             }
   getAuthor       () { return "Nirewen";            }
   unload          () { this.deleteEverything();     }
   stop            () { this.deleteEverything();     }
@@ -127,7 +127,7 @@ class Citador {
                     
                     $('.quote-msg').find(`.markup-2BOw-j`).each(function() {
                       let index = $(`.quote-msg .${DiscordClassModules.Messages.message}`).index($(`.quote-msg .${DiscordClassModules.Messages.message}`).has(this));
-                      if (0 === self.quoteProps.messages[index].content.length + $(this).closest(`.${DiscordClassModules.Messages.message}`).find(`.${DiscordClassModules.accessory}`).length) {
+                      if (0 === self.quoteProps.messages[index].content.length + $(this).closest(`.${DiscordClassModules.Messages.message}`).find(`.container-1e22Ot`).length) {
                         self.removeQuoteAtIndex(index);
                       }
                     });
