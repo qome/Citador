@@ -23,7 +23,7 @@ class Citador {
   
   getName         () { return "Citador";            }
   getDescription  () { return this.local.description}
-  getVersion      () { return "1.7.12";             }
+  getVersion      () { return "1.7.13";             }
   getAuthor       () { return "Nirewen";            }
   unload          () { this.deleteEverything();     }
   stop            () { this.deleteEverything();     }
@@ -54,7 +54,6 @@ class Citador {
     let self = this;
     PluginUtilities.checkForUpdate(this.getName(), this.getVersion(), "https://raw.githubusercontent.com/nirewen/Citador/master/Citador.plugin.js");
     PluginUtilities.showToast(`${this.getName()} ${this.getVersion()} ${this.local.startMsg.toLowerCase()}`);
-    this.switchObserver    = PluginUtilities.createSwitchObserver(this);
     this.MessageParser     = InternalUtilities.WebpackModules.findByUniqueProperties(["createBotMessage"]);
     this.MessageQueue      = InternalUtilities.WebpackModules.findByUniqueProperties(["enqueue"]);
     this.MessageController = InternalUtilities.WebpackModules.findByUniqueProperties(["sendClydeError"]);
@@ -195,7 +194,7 @@ class Citador {
     this.log(this.local.startMsg, "info");
   }
   
-  onChannelSwitch () {
+  onSwitch () {
     if (this.quoteProps) {
       this.attachParser();
       
@@ -523,7 +522,6 @@ class Citador {
     $(`.${DiscordClassModules.Messages.messages} .${DiscordClassModules.Messages.container}`).off('mouseover');
     $(`.${DiscordClassModules.Messages.messages} .${DiscordClassModules.Messages.container}`).off('mouseleave');
     this.remove("citador-css");
-    this.switchObserver.disconnect();
     this.initialized = false;
     this.cancel();
   }
