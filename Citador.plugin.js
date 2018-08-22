@@ -23,7 +23,7 @@ class Citador {
   
   getName         () { return "Citador";            }
   getDescription  () { return this.local.description}
-  getVersion      () { return "1.7.13";             }
+  getVersion      () { return "1.7.14";             }
   getAuthor       () { return "Nirewen";            }
   unload          () { this.deleteEverything();     }
   stop            () { this.deleteEverything();     }
@@ -406,7 +406,7 @@ class Citador {
   }
   
   patchExternalLinks() {
-    let LinkComponent = InternalUtilities.WebpackModules.find(InternalUtilities.Filters.byCode(/trusted/));
+    let LinkComponent = InternalUtilities.WebpackModules.find(m => m && m.toString && m.toString([]).includes("trusted"));
     this.cancel = InternalUtilities.monkeyPatch(LinkComponent.prototype, "render", {before: ({thisObject}) => {
         if (thisObject.props.href.startsWith(this.quoteURL)) {
           thisObject.props.trusted = true;
