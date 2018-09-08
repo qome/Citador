@@ -16,7 +16,7 @@ Un plugin care ușurează citarea pentru o conversatie mai bună, fară să fie 
 
 ### Instalarea plugin-ului
 
-Pentru a instala, urmează următorii pași pentru instalarea unui plugin normal:
+Pentru a instala, urmează pașii pentru instalarea unui plugin normal:
 
 1. Descarcă cea mai nouă versiune din [releases](https://github.com/nirewen/Citador/releases).
 2. Apasă pe <kbd>Win</kbd> + <kbd>R</kbd> (sau deschide 'Run' din meniul de pornire)
