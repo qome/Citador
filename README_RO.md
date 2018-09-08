@@ -9,10 +9,10 @@ Un plugin care ușurează citarea pentru o conversatie mai bună, fară să fie 
 
 ### Instalarea BetterDiscord
 
-1. Mergeți pe [site-ul BetterDiscord](https://github.com/rauenzi/BetterDiscordApp/releases/tag/0.2.82)
+1. Mergi pe [site-ul BetterDiscord](https://github.com/rauenzi/BetterDiscordApp/releases/tag/0.2.82)
 2. Descarcă versiunea pentru sistemul tău de operare
 3. Extrage fişierele din fişierul .zip
-4. Instalați prin deschiderea fişierului .exe
+4. Instaleaza prin deschiderea fişierului .exe
 
 ### Instalarea plugin-ului
 
