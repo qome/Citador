@@ -25,7 +25,7 @@ Pentru a instala, urmează pașii pentru instalarea unui plugin normal:
 
 Pentru orice întrebare, întreabă-mă pe Discord: Nirewen`#9011`
 
-De asemenea, vă puteți alătura [serverul de asistență](https://discord.gg/tQrdqKG) [EN]
+De asemenea, te poți alătura [serverul de asistență](https://discord.gg/tQrdqKG) [EN]
 
 
 Tradus de Alex.`#2774`
