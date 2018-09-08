@@ -34,7 +34,7 @@ Tradus de Alex.`#2774` și YoshiFan13`#4985`
 ### Erori cunoscute
 - [ ] Este posibil ca emote-urile globale și emote-urile de server să nu apară
 - Nu voi rezolva, fiindcă cei cu Nitro nu au această problemă
-- Să nu fi surprins dacă emote-ul nu merge, nu este vina pluginului, ci a API-ului Discord, care a interzis emote-urile globale în embed-uri (ceea ce sunt, în principiu, citatele)
+- Să nu fii surprins dacă emote-ul nu merge, nu este vina pluginului, ci a API-ului Discord, care a interzis emote-urile globale în embed-uri (ceea ce sunt, în principiu, citatele)
 
 ### Preview
 ![Citador em ação](http://nirewen.s-ul.eu/02Tcv6ZT.gif)
