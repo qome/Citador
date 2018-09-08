@@ -19,11 +19,11 @@ Un plugin care ușurează citarea pentru o conversatie mai bună, fară să fie 
 Pentru a instala, urmează pașii pentru instalarea unui plugin normal:
 
 1. Descarcă cea mai nouă versiune din [releases](https://github.com/nirewen/Citador/releases).
-2. Apasă pe <kbd>Win</kbd> + <kbd>R</kbd> (sau deschide 'Run' din meniul de pornire)
+2. Apasă <kbd>Win</kbd> + <kbd>R</kbd> (sau deschide 'Run' din meniul de pornire)
 3. Scrie `%appdata%/BetterDiscord/plugins` şi apasă `Enter`
 4. Pune fişierul descărcat aici.
 
-Orice întrebare, întreabă-mă pe Discord: Nirewen`#9011`
+Pentru orice întrebare, întreabă-mă pe Discord: Nirewen`#9011`
 
 De asemenea, vă puteți alătura [serverul de asistență](https://discord.gg/tQrdqKG) [EN]
 
