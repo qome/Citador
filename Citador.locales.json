@@ -1,33 +1,33 @@
 {
 	"ro": {
-		"description": "Citează pe cineva in chat",
+		"description": "Citează pe cineva în chat",
 		"startMsg": "Pornit",
 		"quoteTooltip": "Citează",
-		"deleteTooltip": "Sterge",
+		"deleteTooltip": "Șterge",
 		"noPermTooltip": "Fară permisiuni de citare",
 		"noChatTooltip": "Fară permisiuni de a trimite mesaje",
 		"attachment": "Atașament",
 		"warning": {
 			"title": "Avertizare Embed",
-			"description": "Prin utilizarea citatelor embeded ești predispus să fii marcat de la Discord și având permisiunile de embedding îndepărtate global. Utilizați cu grijă.",
+			"description": "Prin utilizarea citatelor embed ești predispus să fii raportat la Discord și să ai permisiunile de embed eliminate global. Folosește cu grijă.",
 			"yes": "Folosește Embeduri",
 			"no": "Rămâi cu codeblocks"
 		},
 		"settings": {
 			"mentionUser": {
 				"title": "Menționează utilizatorul citat",
-				"description": "Dacă să fie menționat utilizatorul citat sau nu. Poți, de asemenea, apăsa pe avatarul utilizatorului pentru a atașa o mențiune in mesajul dumneavoastră."
+				"description": "Dacă să fie menționat utilizatorul citat sau nu. Poți, de asemenea, apăsa pe avatarul utilizatorului pentru a atașa o mențiune in mesajul tău."
 			},
 			"useFallbackCodeblock": {
 				"title": "Folosește formatul de citat codeblock",
 				"choices": ["Niciodată", "Mereu", "Numai atunci când nu ai permisiuni"]
 			},
 			"disableServers": {
-				"title": "Dezactivați citaturile embed pentru servere specifice",
-				"description": "Apăsați pe un server pentru a dezactiva citaturile embed pentru acesta. Apăsați din nou pentru a re activa.</br>Poți, de asemenea, să faci click dreapta pe un server și să comuți",
+				"title": "Dezactivează citaturile embed pentru servere specifice",
+				"description": "Apasă pe un server pentru a dezactiva citaturile embed pentru acesta. Apasă din nou pentru a re activa.</br>Poți, de asemenea, să faci click dreapta pe un server și să comuți",
 				"context": "Citate Embed"
 			},
-			"reset": "Restabiliți setările"
+			"reset": "Restabilește setările"
 		}
 	},
 	"pt": {

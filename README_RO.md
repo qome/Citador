@@ -1,5 +1,5 @@
 # Citador
-Un plugin pentru a uşura citarea pentru o conversație mai bună, fară să fie oamenii pierduți în context :wink:
+Un plugin care ușurează citarea pentru o conversatie mai bună, fară să fie oamenii pierduți în context :wink:
 
 ## Caracteristici
 - Iți permite să vezi mesajul care o să fie citat
@@ -10,7 +10,7 @@ Un plugin pentru a uşura citarea pentru o conversație mai bună, fară să fie
 ### Instalarea BetterDiscord
 
 1. Mergeți pe [site-ul BetterDiscord](https://github.com/rauenzi/BetterDiscordApp/releases/tag/0.2.82)
-2. Descărcați versiunea pentru sistemul dumneavoastră de operare
+2. Descarcă versiunea pentru sistemul tău de operare
 3. Extrage fişierele din fişierul .zip
 4. Instalați prin deschiderea fişierului .exe
 
@@ -18,7 +18,7 @@ Un plugin pentru a uşura citarea pentru o conversație mai bună, fară să fie
 
 Pentru a instala, urmează următorii pași pentru instalarea unui plugin normal:
 
-1. Descărcați cea mai nouă versiune din [releases](https://github.com/nirewen/Citador/releases).
+1. Descarcă cea mai nouă versiune din [releases](https://github.com/nirewen/Citador/releases).
 2. Apasă pe <kbd>Win</kbd> + <kbd>R</kbd> (sau deschide 'Run' din meniul de pornire)
 3. Scrie `%appdata%/BetterDiscord/plugins` şi apasă `Enter`
 4. Pune fişierul descărcat aici.
