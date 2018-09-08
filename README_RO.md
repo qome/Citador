@@ -1,11 +1,11 @@
 # Citador
-Un plugin care ușurează citarea pentru o conversatie mai bună, fară să fie oamenii pierduți în context :wink:
+Un plugin care ușurează citarea pentru o conversație mai bună, fară să fie oamenii pierduți în context :wink:
 
 ## Caracteristici
-- Iți permite să vezi mesajul care o să fie citat
-- Iți permite să ştergi un mesaj pe care nu îl vrei citat
-- Iți permite să selectezi mesajul pe care îl vrei citat
-- Iți permite să schimbi servere sau canale în timp ce citezi
+- Îți permite să vezi mesajul care o să fie citat
+- Îți permite să ştergi un mesaj pe care nu îl vrei citat
+- Îți permite să selectezi mesajul pe care îl vrei citat
+- Îți permite să schimbi servere sau canale în timp ce citezi
 
 ### Instalarea BetterDiscord
 
