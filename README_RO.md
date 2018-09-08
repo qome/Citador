@@ -30,10 +30,11 @@ De asemenea, te poți alătura [serverul-ui de asistență](https://discord.gg/t
 
 Tradus de Alex.`#2774` și YoshiFan13`#4985`
 
+
 ### Erori cunoscute
-- [ ] Emoturile Globale / Emoturile unui server ar putea să nu apară
-- Acesta nu voi repara, deoarece cei care au Nitro nu au această problemă
-- Doar nu fi surprins dacă emotul nu funcționează, nu este vina pluginului, e vina API-ului Discord, care a interzis emote-urile globale în embed (ceea ce sunt, în principiu citatele)
+- [ ] Este posibil ca emote-urile globale și emote-urile de server să nu apară
+- Nu voi rezolva, fiindcă cei cu Nitro nu au această problemă
+- Să nu fi surprins dacă emote-ul nu merge, nu este vina pluginului, ci a API-ului Discord, care a interzis emote-urile globale în embed-uri (ceea ce sunt, în principiu, citatele)
 
 ### Preview
 ![Citador em ação](http://nirewen.s-ul.eu/02Tcv6ZT.gif)
