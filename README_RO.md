@@ -25,15 +25,15 @@ Pentru a instala, urmează pașii pentru instalarea unui plugin normal:
 
 Pentru orice întrebare, întreabă-mă pe Discord: Nirewen`#9011`
 
-De asemenea, te poți alătura [serverul de asistență](https://discord.gg/tQrdqKG) [EN]
+De asemenea, te poți alătura [serverul-ui de asistență](https://discord.gg/tQrdqKG) [EN]
 
 
-Tradus de Alex.`#2774`
+Tradus de Alex.`#2774` și YoshiFan13`#4985`
 
-### Buguri cunoscute
+### Erori cunoscute
 - [ ] Emoturile Globale / Emoturile unui server ar putea să nu apară
 - Acesta nu voi repara, deoarece cei care au Nitro nu au această problemă
-- Doar nu fi surprins dacă emotul nu funcționează, nu este vina pluginului, e vina API-ului Discord, care a interzis emoturile globale în embed (ceea ce sunt, în principiu citatele)
+- Doar nu fi surprins dacă emotul nu funcționează, nu este vina pluginului, e vina API-ului Discord, care a interzis emote-urile globale în embed (ceea ce sunt, în principiu citatele)
 
 ### Preview
 ![Citador em ação](http://nirewen.s-ul.eu/02Tcv6ZT.gif)
