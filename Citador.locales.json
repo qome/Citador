@@ -132,10 +132,10 @@
 		"noChatTooltip": "このチャンネルでメッセージを送信する権利がありません",
 		"attachment": "添付ファイル",
 		"warning": {
-			"title": "Embed Warning",
-			"description": "By using embeded quotes you're susceptible to being red flagged from Discord and having embedding permissions removed globally. Use carefully.",
-			"yes": "Use Embeds",
-			"no": "Stick with codeblocks"
+			"title": "引用に関する警告",
+			"description": "引用符を使用すると、Discordよりあなたのアカウントの引用権限が制限され、すべてのサーバーで引用が利用できなくなる場合があります。注意して利用してください。",
+			"yes": "引用符を使用する",
+			"no": "コードブロックを使用する"
 		},
 		"settings": {
 			"mentionUser": {
