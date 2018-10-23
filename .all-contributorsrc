@@ -1,0 +1,150 @@
+{
+  "projectName": "citador",
+  "projectOwner": "nirewen",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md",
+    "README_PT.md",
+    "README_DE.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "davipatury",
+      "name": "Davi Patury",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/10660904?v=4",
+      "profile": "https://github.com/davipatury",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "LucasLeandro1204",
+      "name": "Lucas Leandro",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/13268691?v=4",
+      "profile": "http://twitter.com/lucasleandro412",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "alexdemaster",
+      "name": "Kovacs Alex",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/31011461?v=4",
+      "profile": "https://www.alexthemaster.net",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "maximmax42",
+      "name": "Maxim",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/2225711?v=4",
+      "profile": "https://github.com/maximmax42",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "hallopiu",
+      "name": "redslime",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/10260306?v=4",
+      "profile": "https://redslime.xyz",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "LasseNiermann",
+      "name": "Lasse Niermann",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/29554855?v=4",
+      "profile": "http://lasseniermann.me",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "THEN00P",
+      "name": "THEN00P",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/25532628?v=4",
+      "profile": "https://github.com/THEN00P",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "intrnl",
+      "name": "intrnl",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/20620901?v=4",
+      "profile": "https://github.com/intrnl",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "fixator10",
+      "name": "Fixator10",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/11073934?v=4",
+      "profile": "http://vk.me/fixator10",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "OrangutanGaming",
+      "name": "Nihaal Sangha",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/18350092?v=4",
+      "profile": "https://github.com/OrangutanGaming",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "Soitora",
+      "name": "Simon Mattila",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/10836780?v=4",
+      "profile": "https://simonmattila.se/",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "SimplyRin",
+      "name": "SimplyRin",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/26184969?v=4",
+      "profile": "https://www.simplyrin.net",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "katabame",
+      "name": "Katabame Ayame",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/9818101?v=4",
+      "profile": "http://kataba.me",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "Notavone",
+      "name": "Nøtavøne",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/26359477?v=4",
+      "profile": "https://github.com/Notavone",
+      "contributions": [
+        "translation"
+      ]
+    },
+    {
+      "login": "underecho",
+      "name": "under.",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/25314806?v=4",
+      "profile": "https://github.com/underecho",
+      "contributions": [
+        "translation"
+      ]
+    }
+  ]
+}
