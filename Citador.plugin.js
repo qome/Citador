@@ -97,7 +97,7 @@ class Citador {
     $(document).on("mouseover.citador", function(e) {
       let target = $(e.target);
       if (target.parents(`${DiscordSelectors.Messages.message}`).length > 0) {
-        $(`${DiscordSelectors.Messages.container}`)
+        $(`.${DiscordSelectors.Messages.messages.toString().split(".")[1]} ${DiscordSelectors.Messages.container}`)
           .on('mouseover', function() {
             if ($(this).find('.citar-btn').length == 0) {
               $(`${DiscordSelectors.Messages.messages} ${DiscordSelectors.Messages.container}`).hasClass(`${DiscordClasses.Messages.containerCompact}`) 
