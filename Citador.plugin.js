@@ -4,7 +4,7 @@
 
 var Citador = (() => {
 	
-  var Toasts, DiscordSelectors, DiscordClasses, PluginUpdater, DiscordModules, WebpackModules, Tooltip, ReactTools, ContextMenu, Patcher, Settings, PluginUtilities, DiscordAPI, DiscordClassModules;
+  var Toasts, DiscordSelectors, DiscordClasses, PluginUpdater, DiscordModules, WebpackModules, Tooltip, Modals, ReactTools, ContextMenu, Patcher, Settings, PluginUtilities, DiscordAPI, DiscordClassModules;
 	
   return class Citador {
 
@@ -55,7 +55,7 @@ var Citador = (() => {
   }
   
   initialize() {
-	({Toasts, DiscordSelectors, DiscordClasses, PluginUpdater, DiscordModules, WebpackModules, Tooltip, ReactTools, ContextMenu, Patcher, Settings, PluginUtilities, DiscordAPI, DiscordClassModules} = ZLibrary);
+	({Toasts, DiscordSelectors, DiscordClasses, PluginUpdater, DiscordModules, WebpackModules, Tooltip, Modals, ReactTools, ContextMenu, Patcher, Settings, PluginUtilities, DiscordAPI, DiscordClassModules} = ZLibrary);
     let self = this;
     PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), "https://raw.githubusercontent.com/nirewen/Citador/master/Citador.plugin.js");
     Toasts.default(`${this.getName()} ${this.getVersion()} ${this.local.startMsg.toLowerCase()}`);
