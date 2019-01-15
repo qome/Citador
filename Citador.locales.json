@@ -215,5 +215,36 @@
 			},
 			"reset": "Reset settings"
 		}
+	},
+	"es": {
+		"description": "Cita a alguien en el chat",
+		"startMsg": "Iniciado",
+		"quoteTooltip": "Citar",
+		"deleteTooltip": "Eliminar",
+		"noPermTooltip": "No tienes permiso para citar",
+		"noChatTooltip": "No tienes permiso para enviar mensajes",
+		"attachment": "Adjunto",
+		"warning": {
+			"title": "Advertencia de embeds",
+			"description": "Al usar citas embeds estas advertido de ser marcado como rojo desde Discord con la posibilidad de que remuevan tus permisos de incrustación. Usalo con precaución.",
+			"yes": "Usar embeds",
+			"no": "Quedarse con bloques de códigos"
+		},
+		"settings": {
+			"mentionUser": {
+				"title": "Mencionar al usuario citado",
+				"description": "Ya sea para mencionar al usuario que citaste o no. También puedes hacer click en sus avatares y adjuntar su mención a tu mensaje."
+			},
+			"useFallbackCodeblock": {
+				"title": "Usar el formato de bloque de código",
+				"choices": ["Nunca", "Siempre", "Solo cuando no tenga permiso"]
+			},
+			"disableServers": {
+				"title": "Desactivar citas embed para servidores específicos",
+				"description": "Haz click en un servidor para desactivar las citas embed para el mismo. Haz click otra vez en ellos para activarlos.</br>También puedes hacer click derecho en un servidor y cambiarlo.",
+				"context": "Citas embed"
+			},
+			"reset": "Restablecer ajustes"
+		}
 	}
 }
