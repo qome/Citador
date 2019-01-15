@@ -70,6 +70,8 @@
   display: block;
   background-color: #2f3136;
   user-select: none;
+  background-size: contain;
+  border-radius: 50%;
 }
 .citador-guilds .avatar-small.disabled {
   filter: grayscale(1) brightness(0.6);
