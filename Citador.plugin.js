@@ -1,8 +1,12 @@
 //META{"name":"Citador"}*//
 
-/* global $, PluginUtilities, PluginTooltip, ReactUtilities, InternalUtilities, PluginContextMenu, PluginSettings, Element */
+/* global $, Element */
 
-class Citador {
+var Citador = (() => {
+	
+  var Toasts, DiscordSelectors, DiscordClasses, PluginUpdater, DiscordModules, WebpackModules, Tooltip, Modals, ReactTools, ContextMenu, Patcher, Settings, PluginUtilities, DiscordAPI, DiscordClassModules;
+	
+  return class Citador {
 
   constructor() {
     this.downloadJSON("https://rawgit.com/nirewen/Citador/master/Citador.locales.json").then((json) => {
@@ -23,7 +27,7 @@ class Citador {
   
   getName         () { return "Citador";            }
   getDescription  () { return this.local.description}
-  getVersion      () { return "1.7.16";             }
+  getVersion      () { return "1.7.17";             }
   getAuthor       () { return "Nirewen";            }
   unload          () { this.deleteEverything();     }
   stop            () { this.deleteEverything();     }
@@ -32,7 +36,7 @@ class Citador {
     let libraryScript = this.inject('script', {
       type: 'text/javascript',
       id: 'zeresLibraryScript',
-      src: 'https://rauenzi.github.io/BetterDiscordAddons/Plugins/PluginLibrary.js?v=2'
+      src: 'https://rauenzi.github.io/BDPluginLibrary/release/ZLibrary.js'
     });
     this.inject('link', {
       type: 'text/css',
@@ -44,30 +48,30 @@ class Citador {
     if (!this.strings) 
       this.strings = await this.downloadJSON("https://rawgit.com/nirewen/Citador/master/Citador.locales.json");
 
-    if (typeof window.ZeresLibrary !== "undefined") 
+    if (typeof window.ZLibrary !== "undefined") 
       this.initialize();
     else 
       libraryScript.addEventListener("load", () => this.initialize());
   }
   
   initialize() {
+	({Toasts, DiscordSelectors, DiscordClasses, PluginUpdater, DiscordModules, WebpackModules, Tooltip, Modals, ReactTools, ContextMenu, Patcher, Settings, PluginUtilities, DiscordAPI, DiscordClassModules} = ZLibrary);
     let self = this;
-    PluginUtilities.checkForUpdate(this.getName(), this.getVersion(), "https://raw.githubusercontent.com/nirewen/Citador/master/Citador.plugin.js");
-    PluginUtilities.showToast(`${this.getName()} ${this.getVersion()} ${this.local.startMsg.toLowerCase()}`);
-    this.MessageParser     = InternalUtilities.WebpackModules.findByUniqueProperties(["createBotMessage"]);
-    this.MessageQueue      = InternalUtilities.WebpackModules.findByUniqueProperties(["enqueue"]);
-    this.MessageController = InternalUtilities.WebpackModules.findByUniqueProperties(["sendClydeError"]);
-    this.EventDispatcher   = InternalUtilities.WebpackModules.findByUniqueProperties(["dispatch"]);
-    this.MainDiscord       = InternalUtilities.WebpackModules.findByUniqueProperties(["ActionTypes"]);
-    this.HistoryUtils      = InternalUtilities.WebpackModules.findByUniqueProperties(['transitionTo', 'replaceWith', 'getHistory']);
-    this.moment            = InternalUtilities.WebpackModules.findByUniqueProperties(['parseZone']);
+    PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), "https://raw.githubusercontent.com/nirewen/Citador/master/Citador.plugin.js");
+    Toasts.default(`${this.getName()} ${this.getVersion()} ${this.local.startMsg.toLowerCase()}`);
+    this.MessageParser     = WebpackModules.findByUniqueProperties(["createBotMessage"]);
+    this.MessageQueue      = WebpackModules.findByUniqueProperties(["enqueue"]);
+    this.MessageController = WebpackModules.findByUniqueProperties(["sendClydeError"]);
+    this.EventDispatcher   = WebpackModules.findByUniqueProperties(["dispatch"]);
+    this.MainDiscord       = WebpackModules.findByUniqueProperties(["ActionTypes"]);
+    this.HistoryUtils      = WebpackModules.findByUniqueProperties(['transitionTo', 'replaceWith', 'getHistory']);
+    this.moment            = WebpackModules.findByUniqueProperties(['parseZone']);
     this.initialized       = true;
     this.quoteURL          = 'https://github.com/nirewen/Citador?';
     this.CDN_URL           = 'https://cdn.discordapp.com/avatars/';
     this.ASSETS_URL        = 'https://discordapp.com';
-    DiscordClassModules.Messages.messages = InternalUtilities.WebpackModules.findByUniqueProperties(["messages"])
-      ? InternalUtilities.WebpackModules.findByUniqueProperties(["messages"]).messages
-      : 'messages';
+	DiscordClassModules.Messages.messages = WebpackModules.findByUniqueProperties(["messages"])
+      ? WebpackModules.findByUniqueProperties(["messages"]).messages : 'messages';
   
     /* 
       Forcing guilds to be blocked in Citador.
@@ -104,16 +108,15 @@ class Citador {
                 ? $(this).find('time:not(.edited-DL9ECl)').first().prepend('<span class="citar-btn"></span>') 
                 : $(this).find('time:not(.edited-DL9ECl)').append('<span class="citar-btn"></span>');
                 
-              new PluginTooltip.Tooltip($(this).find('.citar-btn'), self.local.quoteTooltip);
+              new Tooltip($(this).find('.citar-btn'), self.local.quoteTooltip);
               $(this).find('.citar-btn')
                 .on('mousedown.citador', () => false)
                 .click(function() {
                   self.attachParser();
                   
                   let message = $(this).parents(`${DiscordSelectors.Messages.container}`);
-                  
-                  self.quoteProps = $.extend(true, {}, ReactUtilities.getOwnerInstance(message[0]).props);
-                  
+                  self.quoteProps = $.extend(true, {}, ReactTools.getOwnerInstance(message[0]).props);
+
                   this.createQuote = function() {
                     var messageElem = $(message).clone().hide().appendTo(".quote-msg");
                     self.quoteMsg = $(".quote-msg");
@@ -143,7 +146,7 @@ class Citador {
                         self.removeQuoteAtIndex($(`.quote-msg ${DiscordSelectors.Messages.message}`).index($(`.quote-msg ${DiscordSelectors.Messages.message}`).has(this)));
                       })
                       .each(function() {
-                        new PluginTooltip.Tooltip($(this), self.local.deleteTooltip);
+                        new Tooltip($(this), self.local.deleteTooltip);
                       });
                       
                     ($(`${DiscordSelectors.Messages.messages} ${DiscordSelectors.Messages.container}`).hasClass(`${DiscordClasses.Messages.containerCompact}`) 
@@ -165,11 +168,11 @@ class Citador {
                     
                     if (!self.canChat()) {
                       $('.quote-msg').find('.citar-btn.hidden:not(.cant-embed)').toggleClass('hidden cant-embed');
-                      new PluginTooltip.Tooltip($('.quote-msg').find('.citar-btn'), self.local.noChatTooltip, 'red');
+                      new Tooltip($('.quote-msg').find('.citar-btn'), self.local.noChatTooltip, 'red');
                     }
                     else if (!self.canEmbed() && self.settings.useFallbackCodeblock == 0) {
                       $('.quote-msg').find('.citar-btn.hidden:not(.cant-embed)').toggleClass('hidden cant-embed');
-                      new PluginTooltip.Tooltip($('.quote-msg').find('.citar-btn'), self.local.noPermTooltip, 'red');
+                      new Tooltip($('.quote-msg').find('.citar-btn'), self.local.noPermTooltip, 'red');
                     }
                     
                     messageElem.slideDown(150);
@@ -202,11 +205,11 @@ class Citador {
       
       if (!this.canChat()) {
         $('.quote-msg').find('.citar-btn.hidden:not(.cant-embed)').toggleClass('hidden cant-embed');
-        new PluginTooltip.Tooltip($('.quote-msg').find('.citar-btn'), this.local.noChatTooltip, 'red');
+        new Tooltip($('.quote-msg').find('.citar-btn'), this.local.noChatTooltip, 'red');
       }
       else if (!this.canEmbed() && this.settings.useFallbackCodeblock == 0) {
         $('.quote-msg').find('.citar-btn.hidden:not(.cant-embed)').toggleClass('hidden cant-embed');
-        new PluginTooltip.Tooltip($('.quote-msg').find('.citar-btn'), this.local.noPermTooltip, 'red');
+        new Tooltip($('.quote-msg').find('.citar-btn'), this.local.noPermTooltip, 'red');
       } else
         $('.quote-msg').find('.citar-btn:not(.hidden).cant-embed').toggleClass('hidden cant-embed');
     }
@@ -229,11 +232,11 @@ class Citador {
       try {
         if (this.settings.useFallbackCodeblock == 1 
             || !this.canEmbed() && this.settings.useFallbackCodeblock == 2 
-            || this.settings.disabledServers.includes(PluginUtilities.getCurrentServer() 
-                ? PluginUtilities.getCurrentServer().id 
+            || this.settings.disabledServers.includes(DiscordAPI.currentGuild 
+                ? DiscordAPI.currentGuild.id 
                 : null)
-            || this.forcedGuilds.includes(PluginUtilities.getCurrentServer() 
-                ? PluginUtilities.getCurrentServer().id 
+            || this.forcedGuilds.includes(DiscordAPI.currentGuild 
+                ? DiscordAPI.currentGuild.id 
                 : null))
           this.sendTextQuote(e);
         else
@@ -251,8 +254,8 @@ class Citador {
   
   attachMention(user) {
     if (!$('form')[0]) return;
-    ReactUtilities.getOwnerInstance($('form')[0]).setState({
-      textValue: ReactUtilities.getOwnerInstance($('form')[0]).state.textValue + `@${user.username}#${user.discriminator} `
+    ReactTools.getOwnerInstance($('form')[0]).setState({
+      textValue: ReactTools.getOwnerInstance($('form')[0]).state.textValue + `@${user.username}#${user.discriminator} `
     });
   }
   
@@ -264,7 +267,7 @@ class Citador {
       var messages  = props.messages.filter(m => !m.deleted),
           guilds    = this.guilds,
           msg       = props.messages[0],
-          cc        = ReactUtilities.getOwnerInstance($("form")[0]).props.channel,
+          cc        = ReactTools.getOwnerInstance($("form")[0]).props.channel,
           msgC      = props.channel,
           msgG      = guilds.filter(g => g.id == msgC.guild_id)[0],
           
@@ -347,7 +350,7 @@ class Citador {
         }));
       });
           
-      ReactUtilities.getOwnerInstance($('form')[0]).setState({textValue: ''});
+      ReactTools.getOwnerInstance($('form')[0]).setState({textValue: ''});
     
       this.cancelQuote();
       e.preventDefault();
@@ -364,7 +367,7 @@ class Citador {
       var messages  = props.messages.filter(m => !m.deleted),
           guilds    = this.guilds,
           msg      = props.messages[0],
-          cc        = ReactUtilities.getOwnerInstance($("form")[0]).props.channel,
+          cc        = ReactTools.getOwnerInstance($("form")[0]).props.channel,
           msgC      = props.channel,
           msgG      = guilds.filter(g => g.id == msgC.guild_id)[0],
           author    = msg.author,
@@ -396,7 +399,7 @@ class Citador {
           
       this.MessageController.sendMessage(cc.id, { content });
           
-      ReactUtilities.getOwnerInstance($('form')[0]).setState({textValue: ''});
+      ReactTools.getOwnerInstance($('form')[0]).setState({textValue: ''});
     
       this.cancelQuote();
       e.preventDefault();
@@ -406,8 +409,8 @@ class Citador {
   }
   
   patchExternalLinks() {
-    let LinkComponent = InternalUtilities.WebpackModules.find(m => m && m.toString && m.toString([]).includes("trusted"));
-    this.cancel = InternalUtilities.monkeyPatch(LinkComponent.prototype, "render", {before: ({thisObject}) => {
+    let LinkComponent = WebpackModules.find(m => m && m.toString && m.toString([]).includes("trusted"));
+    this.cancel = Patcher.before(this.getName(), LinkComponent.prototype, "render", (thisObject) => {
         if (thisObject.props.href.startsWith(this.quoteURL)) {
           thisObject.props.trusted = true;
             thisObject.props.onClick = (e) => {
@@ -417,10 +420,10 @@ class Citador {
                 if (!guild_id || this.guilds.find(g => g.id == guild_id))
                   this.HistoryUtils.transitionTo(this.MainDiscord.Routes.MESSAGE(guild_id, channel_id, message_id));
                 else
-                  ReactUtilities.getOwnerInstance($('.app')[0]).shake();
+                  ReactTools.getOwnerInstance($('.app')[0]).shake();
             };
         }
-    }});
+    });
   }
   
   removeQuoteAtIndex(i) {
@@ -450,14 +453,14 @@ class Citador {
       context = elem.classList.contains('contextMenu-uoJTbz') ? elem : elem.querySelector('.contextMenu-uoJTbz');
     if (!context) return;
     
-    let {guild, target} = ReactUtilities.getReactProperty(context, "return.memoizedProps");
+    let {guild, target} = ReactTools.getReactProperty(context, "return.memoizedProps");
     
     if (!guild || target.className !== "avatar-small") return;
     
     let {id} = guild;
     if (this.forcedGuilds.includes(id)) return;
     $(context).find('.item-1XYaYf').first().after(
-      $(new PluginContextMenu.ToggleItem(this.local.settings.disableServers.context, !this.settings.disabledServers.includes(id), {
+      $(new ContextMenu.ToggleItem(this.local.settings.disableServers.context, !this.settings.disabledServers.includes(id), {
         callback: e => {
           if (this.settings.disabledServers.includes(id))
             this.settings.disabledServers.splice(this.settings.disabledServers.indexOf(id), 1);
@@ -527,7 +530,7 @@ class Citador {
   }
   
   get guilds () {
-    return ReactUtilities.getOwnerInstance($(`${DiscordSelectors.Guilds.guildsWrapper}`)[0]).props.guilds.map(o => o.guild);
+    return ReactTools.getOwnerInstance($(`${DiscordSelectors.Guilds.guildsWrapper}`)[0]).props.guilds.map(o => o.guild);
   }
   
   get defaultSettings() {
@@ -568,21 +571,21 @@ class Citador {
       </div>`;
     panel.append(
       $(defaultForm)
-        .css('padding-top', '10px')
+        /*.css('padding-top', '10px')
         .find('.h5')
         .toggleClass('title-3sZWYQ size12-3R0845 height16-2Lv3qA weightSemiBold-NJexzi defaultMarginh5-2mL-bP marginBottom8-AtZOdT')
         .html(this.local.settings.mentionUser.title)
         .parent()
         .find('.description')
         .html(this.local.settings.mentionUser.description)
-        .toggleClass('description-3_Ncsb formText-3fs7AJ marginBottom8-AtZOdT modeDefault-3a2Ph1 primary-jw0I4K')
+        .toggleClass('description-3_Ncsb formText-3fs7AJ marginBottom8-AtZOdT modeDefault-3a2Ph1 primary-jw0I4K')*/
         .append(
-          new PluginSettings.Checkbox(this.local.settings.mentionUser.title, this.local.settings.mentionUser.description, this.settings.mentionUser, value => {
+          new Settings.Switch(this.local.settings.mentionUser.title, this.local.settings.mentionUser.description, this.settings.mentionUser, value => {
             this.settings.mentionUser = value;
             this.saveSettings();
-          }).getElement().find('.input-wrapper')
+          }).getElement()
         )
-        .parent(),
+        /*.parent()*/,
       $(defaultForm)
         .find('.h5')
         .toggleClass('title-3sZWYQ size12-3R0845 height16-2Lv3qA weightSemiBold-NJexzi defaultMarginh5-2mL-bP marginBottom8-AtZOdT')
@@ -678,7 +681,7 @@ class Citador {
       return checkbox
         .on('click.citador', () => {
           if (type == 0 || type == 2)
-            PluginUtilities.showConfirmationModal(this.local.warning.title, this.local.warning.description, {
+            Modals.showConfirmationModal(this.local.warning.title, this.local.warning.description, {
               confirmText: this.local.warning.yes,
               cancelText: this.local.warning.no,
               onConfirm: () => {
@@ -717,7 +720,8 @@ class Citador {
          </div>
        </div>
      </div>`);
-    new PluginTooltip.Tooltip(guildEl.find('.avatar-small'), guild.name);
+    new Tooltip(guildEl.find('.avatar-small'), guild.name);
     return guildEl;
   }
 }
+})();
