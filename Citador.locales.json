@@ -246,5 +246,36 @@
 			},
 			"reset": "Restablecer ajustes"
 		}
+	},
+	"cs": {
+		"description": "Umožňuje citovat zprávy v chatu",
+		"startMsg": "Spuštěn",
+		"quoteTooltip": "Citovat",
+		"deleteTooltip": "Smazat",
+		"noPermTooltip": "Neoprávněn citovat",
+		"noChatTooltip": "Neoprávněn posílat zprávy",
+		"attachment": "Příloha",
+		"warning": {
+			"title": "Upozornění o Embeds",
+			"description": "Používáním citací pomocí Embeds jste náchylní k nachytání Discordem a globálnímu zákazu použití Embeds na svém účtu. Používejte s opatrností.",
+			"yes": "Použít Embeds",
+			"no": "Nadále používat bloky kódu"
+		},
+		"settings": {
+			"mentionUser": {
+				"title": "Zmínit citovaného uživatele",
+				"description": "Nastaví, jestli se má ve zprávě zmínit citovaný uživatel, nebo ne. Můžete také kliknout na jejich avatar, čímž je ve zprávě zmíníte."
+			},
+			"useFallbackCodeblock": {
+				"title": "Citovat pomocí bloků kódu",
+				"choices": ["Nikdy", "Vždycky", "Jen pokud nemáte jiná oprávnění"]
+			},
+			"disableServers": {
+				"title": "Vypnutí Embeds pro určité servery",
+				"description": "Po kliknutí na server u něj vypnete citování pomocí Embeds. Kliknutím znovu je povolíte.</br>Také můžete kliknout na server pravým tlačítkem myši a tuto možnost přepnout.",
+				"context": "Embed citace"
+			},
+			"reset": "Obnovit nastavení"
+		}
 	}
 }
