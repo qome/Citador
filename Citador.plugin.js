@@ -9,7 +9,7 @@ var Citador = (() => {
   return class Citador {
 
   constructor() {
-    this.downloadJSON("https://rawgit.com/nirewen/Citador/master/Citador.locales.json").then((json) => {
+    this.downloadJSON("https://raw.githubusercontent.com/nirewen/Citador/master/Citador.locales.json").then((json) => {
       this.strings = json;
     })
   }
@@ -42,11 +42,11 @@ var Citador = (() => {
       type: 'text/css',
       id: 'citador-css',
       rel: 'stylesheet',
-      href: 'https://rawgit.com/nirewen/Citador/master/Citador.styles.css?v=2'
+      href: 'https://rawcdn.githack.com/nirewen/Citador/master/Citador.styles.css?v=2'
     });
 
     if (!this.strings) 
-      this.strings = await this.downloadJSON("https://rawgit.com/nirewen/Citador/master/Citador.locales.json");
+      this.strings = await this.downloadJSON("https://raw.githubusercontent.com/nirewen/Citador/master/Citador.locales.json");
 
     if (typeof window.ZLibrary !== "undefined") 
       this.initialize();
