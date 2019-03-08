@@ -27,7 +27,7 @@ var Citador = (() => {
   
   getName         () { return "Citador";            }
   getDescription  () { return this.local.description}
-  getVersion      () { return "1.7.17";             }
+  getVersion      () { return "1.7.18";             }
   getAuthor       () { return "Nirewen";            }
   unload          () { this.deleteEverything();     }
   stop            () { this.deleteEverything();     }
@@ -530,7 +530,7 @@ var Citador = (() => {
   }
   
   get guilds () {
-    return ReactTools.getOwnerInstance($(`${DiscordSelectors.Guilds.guildsWrapper}`)[0]).props.guilds.map(o => o.guild);
+    return ReactTools.getOwnerInstance($('.' + BdApi.findModuleByProps('unreadMentionBar', 'unreadMentionsBar', 'wrapper').wrapper.replace(/ /g, '.'))[0]).props.guilds.map(o => o.guild);
   }
   
   get defaultSettings() {
