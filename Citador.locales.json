@@ -62,34 +62,34 @@
 		}
 	},
 	"de": {
-		"description": "Zitiert jemanden im Chat mithilfe von eingebetten Nachrichten",
+		"description": "Zitiert jemanden im Chat",
 		"startMsg": "Gestartet",
-		"quoteTooltip": "Zitieren",
+		"quoteTooltip": "Zitat",
 		"deleteTooltip": "Löschen",
-		"noPermTooltip": "Keine Rechte zum Zitieren",
-		"noChatTooltip": "Keine Rechte Nachrichten zu senden",
+		"noPermTooltip": "Keine Erlaubnis zu zitieren",
+		"noChatTooltip": "Keine Berechtigung zum Senden von Nachrichten",
 		"attachment": "Anhang",
 		"warning": {
-			"title": "Embed Warning",
-			"description": "By using embeded quotes you're susceptible to being red flagged from Discord and having embedding permissions removed globally. Use carefully.",
-			"yes": "Use Embeds",
-			"no": "Stick with codeblocks"
+			"title": "Warnung bezüglich dem Einbetten",
+			"description": "Wenn Du mit der Einbettungsfunktion zitierst, läufst Du Gefahr, dass Discord dies erkennt und Dir die Möglichkeit Sachen einzubetten komplett sperrt. Pass auf Dich auf, Partner.",
+			"yes": "Zitate einbetten",
+			"no": "Zitate in Codeblöcken darstellen"
 		},
 		"settings": {
 			"mentionUser": {
-				"title": "Mention the quoted user",
-				"description": "Whether to mention the quoted user or not. You can also click their avatar to attach their mention to your message."
+				"title": "Zitierte Person erwähnen",
+				"description": "Ob die zitierte Person zu @erwähnen ist oder nicht. Du kannst auch auf den Avatar der Person klicken, um die @Erwähnung dem Zitat hinzuzufügen."
 			},
 			"useFallbackCodeblock": {
-				"title": "Im Code-Format senden",
-				"choices": ["Niemals", "Immer", "Nur, falls keine Berechtigung"]
+				"title": "Nutze Codeblöcke zur darstellung von Zitaten",
+				"choices": ["Niemals", "Immer", "Nur, wenn keine Berechtigung für Einbettungen"]
 			},
 			"disableServers": {
-				"title": "Deaktiviere Zitate für spezielle Server",
-				"description": "Klicke auf einen Server um Zitate zu deaktivieren. Klicke erneut zum Aktivieren.</br>Du kannst auch auf einen Server rechtsklicken zum Umschalten.",
+				"title": "Deaktiviere die Einbettungsfunktion für bestimmte Server",
+				"description": "Klick auf einen Server, um die Einbettungsfunktion für ihn zu deaktivieren (oder wieder zu aktivieren).</br>Du kannst auch mit der rechten Maustaste auf eine Gilde klicken und sie umschalten.",
 				"context": "Zitate einbetten"
 			},
-			"reset": "Einstellungen zurücksetzten"
+			"reset": "Einstellungen zurücksetzen"
 		}
 	},
 	"ru": {
