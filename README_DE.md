@@ -21,7 +21,7 @@ Ein Plugin um einfacher auf Discord zu zitieren, ohne dass Leute den Faden verli
 
 Um das Plugin zu installieren, folge einfach diesen Schritten:
 
-1. Lade die [neuste Version](https://raw.githubusercontent.com/KennethWussmann/Citador/de/Citador_DE.plugin.js) herunter.
+1. Lade die [neuste Version](https://raw.githubusercontent.com/nirewen/Citador/master/Citador.plugin.js) herunter.
 2. Drücke <kbd>Windows</kbd> + <kbd>R</kbd> (Oder öffne `Ausführen` im Startmenü).
 3. Schreibe `%appdata%/BetterDiscord/plugins` und drücke <kbd>Enter</kbd>.
 4. Kopiere die heruntergeladene Datei im nun öffnenden Ordner.
