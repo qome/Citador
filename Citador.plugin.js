@@ -1,4 +1,4 @@
-//META{"name":"Citador"}*//
+//META{"name":"Citador","source":"https://github.com/nirewen/Citador/blob/master/Citador.plugin.js","website":"https://github.com/nirewen"}*//
 
 /* global $, Element */
 
