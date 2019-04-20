@@ -31,13 +31,18 @@ var Citador = (() => {
   getAuthor       () { return "Nirewen";            }
   unload          () { this.deleteEverything();     }
   stop            () { this.deleteEverything();     }
-  load            () {                              }
+  load            () {
+	let libraryScript=document.getElementById('ZLibraryScript');
+	if(!window.ZLibrary&&!libraryScript){
+		libraryScript=document.createElement('script');
+		libraryScript.setAttribute('type','text/javascript');
+		libraryScript.addEventListener("error",function(){if(typeof window.ZLibrary==="undefined"){window.BdApi.alert("Library Missing",`The library plugin needed for ${this.getName()} is missing and could not be loaded.<br /><br /><a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`);}}.bind(this));
+		libraryScript.setAttribute('src','https://rauenzi.github.io/BDPluginLibrary/release/ZLibrary.js');
+		libraryScript.setAttribute('id','ZLibraryScript');
+		document.head.appendChild(libraryScript);
+	}
+  }
   async start     () {
-    let libraryScript = this.inject('script', {
-      type: 'text/javascript',
-      id: 'zeresLibraryScript',
-      src: 'https://rauenzi.github.io/BDPluginLibrary/release/ZLibrary.js'
-    });
     this.inject('link', {
       type: 'text/css',
       id: 'citador-css',
@@ -45,13 +50,11 @@ var Citador = (() => {
       href: 'https://rawcdn.githack.com/nirewen/Citador/master/Citador.styles.css?v=2'
     });
 
-    if (!this.strings) 
-      this.strings = await this.downloadJSON("https://raw.githubusercontent.com/nirewen/Citador/master/Citador.locales.json");
+    if(!this.strings)this.strings=await this.downloadJSON("https://raw.githubusercontent.com/nirewen/Citador/master/Citador.locales.json");
 
-    if (typeof window.ZLibrary !== "undefined") 
-      this.initialize();
-    else 
-      libraryScript.addEventListener("load", () => this.initialize());
+	let libraryScript=document.getElementById('ZLibraryScript');
+    if(typeof window.ZLibrary!=="undefined")this.initialize();
+    else libraryScript.addEventListener("load",()=>this.initialize());
   }
   
   initialize() {
