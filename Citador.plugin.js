@@ -532,8 +532,10 @@ var Citador = (() => {
     this.cancel();
   }
   
-  get guilds () { /*unreadMentionBar does not lead to the guilds wrapper anymore*/
-    return ReactTools.getOwnerInstance($(`.${BdApi.findModuleByProps('wrapper','unreadMentionsBar','unreadMentionsIndicatorBottom','unreadMentionsIndicatorTop').wrapper.replace(/ /g, '.')}`)[0]).props.guilds.map(o => o.guild)||ReactTools.getOwnerInstance(document.getElementsByClassName('wrapper-1Rf91z')[0]).props.guilds.map(o => o.guild);
+  get guilds () { /*unreadMentionBar does not lead to the guilds wrapper anymore. Added a check to see if it grabbed the right module, and if it can't then use a manually written backup.*/
+	let grabByProps=BdApi.findModuleByProps('wrapper','unreadMentionsBar','unreadMentionsIndicatorBottom','unreadMentionsIndicatorTop'),manualBackup='wrapper-1Rf91z';
+	if(grabByProps)return ReactTools.getOwnerInstance($(`.${grabByProps.wrapper.replace(/ /g, '.')}`)[0]).props.guilds.map(o => o.guild);
+	else if(document.getElementsByClassName(manualBackup)[0])return ReactTools.getOwnerInstance(document.getElementsByClassName(manualBackup)[0]).props.guilds.map(o => o.guild);
   }
   
   get defaultSettings() {
