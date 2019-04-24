@@ -32,15 +32,15 @@ var Citador = (() => {
   unload          () { this.deleteEverything();     }
   stop            () { this.deleteEverything();     }
   load            () {
-	let libraryScript=document.getElementById('ZLibraryScript');
-	if(!window.ZLibrary&&!libraryScript){
-		libraryScript=document.createElement('script');
-		libraryScript.setAttribute('type','text/javascript');
-		libraryScript.addEventListener("error",function(){if(typeof window.ZLibrary==="undefined"){window.BdApi.alert("Library Missing",`The library plugin needed for ${this.getName()} is missing and could not be loaded.<br /><br /><a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`);}}.bind(this));
-		libraryScript.setAttribute('src','https://rauenzi.github.io/BDPluginLibrary/release/ZLibrary.js');
-		libraryScript.setAttribute('id','ZLibraryScript');
-		document.head.appendChild(libraryScript);
-	}
+		let libraryScript=document.getElementById('ZLibraryScript');
+		if(!window.ZLibrary&&!libraryScript){
+			libraryScript=document.createElement('script');
+			libraryScript.setAttribute('type','text/javascript');
+			libraryScript.addEventListener("error",function(){if(typeof window.ZLibrary==="undefined"){window.BdApi.alert("Library Missing",`The library plugin needed for ${this.getName()} is missing and could not be loaded.<br /><br /><a href="https://betterdiscord.net/ghdl?url=https://raw.githubusercontent.com/rauenzi/BDPluginLibrary/master/release/0PluginLibrary.plugin.js" target="_blank">Click here to download the library!</a>`);}}.bind(this));
+			libraryScript.setAttribute('src','https://rauenzi.github.io/BDPluginLibrary/release/ZLibrary.js');
+			libraryScript.setAttribute('id','ZLibraryScript');
+			document.head.appendChild(libraryScript);
+		}
   }
   async start     () {
     this.inject('link', {
@@ -532,8 +532,8 @@ var Citador = (() => {
     this.cancel();
   }
   
-  get guilds () {
-    return ReactTools.getOwnerInstance($('.' + BdApi.findModuleByProps('unreadMentionBar', 'unreadMentionsBar', 'wrapper').wrapper.replace(/ /g, '.'))[0]).props.guilds.map(o => o.guild);
+  get guilds () { /*wrapper and unreadMentionBar do not lead to the guilds wrapper anymore*/
+    return ReactTools.getOwnerInstance($(`.${BdApi.findModuleByProps('unreadMentionsBar','unreadMentionsIndicatorBottom','unreadMentionsIndicatorTop').wrapper.replace(/ /g, '.')}`)[0]).props.guilds.map(o => o.guild)||ReactTools.getOwnerInstance(document.getElementsByClassName('wrapper-1Rf91z')[0]).props.guilds.map(o => o.guild);
   }
   
   get defaultSettings() {
