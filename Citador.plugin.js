@@ -532,8 +532,8 @@ var Citador = (() => {
     this.cancel();
   }
   
-  get guilds () { /*wrapper and unreadMentionBar do not lead to the guilds wrapper anymore*/
-    return ReactTools.getOwnerInstance($(`.${BdApi.findModuleByProps('unreadMentionsBar','unreadMentionsIndicatorBottom','unreadMentionsIndicatorTop').wrapper.replace(/ /g, '.')}`)[0]).props.guilds.map(o => o.guild)||ReactTools.getOwnerInstance(document.getElementsByClassName('wrapper-1Rf91z')[0]).props.guilds.map(o => o.guild);
+  get guilds () { /*unreadMentionBar do not lead to the guilds wrapper anymore*/
+    return ReactTools.getOwnerInstance($(`.${BdApi.findModuleByProps('wrapper','unreadMentionsBar','unreadMentionsIndicatorBottom','unreadMentionsIndicatorTop').wrapper.replace(/ /g, '.')}`)[0]).props.guilds.map(o => o.guild)||ReactTools.getOwnerInstance(document.getElementsByClassName('wrapper-1Rf91z')[0]).props.guilds.map(o => o.guild);
   }
   
   get defaultSettings() {
