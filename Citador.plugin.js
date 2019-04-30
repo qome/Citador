@@ -192,7 +192,7 @@ var Citador = (() => {
             }
           })
           .on('mouseleave',function() {
-            if ($(this).find('.citar-btn').length == 1)
+            if ($(this).find('.citar-btn').length >= 1)
               $(this).find('.citar-btn').empty().remove();
           });
       }
