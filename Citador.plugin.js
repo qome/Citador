@@ -27,7 +27,7 @@ var Citador = (() => {
   
   getName         () { return "Citador";            }
   getDescription  () { return this.local.description}
-  getVersion      () { return "1.7.19";             }
+  getVersion      () { return "1.7.20";             }
   getAuthor       () { return "Nirewen";            }
   unload          () { this.deleteEverything();     }
   stop            () { this.deleteEverything();     }
@@ -367,17 +367,17 @@ var Citador = (() => {
     if (props) {
       if (e.shiftKey || $('.autocomplete-1TnWNR').length >= 1) return;
     
-      var messages  = props.messages.filter(m => !m.deleted),
-          guilds    = this.guilds,
-          msg      = props.messages[0],
-          cc        = ReactTools.getOwnerInstance($("form")[0]).props.channel,
-          msgC      = props.channel,
-          msgG      = guilds.filter(g => g.id == msgC.guild_id)[0],
-          author    = msg.author,
-          content   = this.MessageParser.parse(cc, $('.channelTextArea-1LDbYG textarea').val()).content,
-          text      = messages.map(m => m.content).join('\n'),
-          atServer  = msgC.guild_id && msgC.guild_id != cc.guild_id ? ` at ${msgG.name}` : '',
-          chName    = msgC.isDM() ? `@${msgC._getUsers()[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
+      var messages	= props.messages.filter(m => !m.deleted),
+          guilds	= this.guilds,
+          msg		= props.messages[0],
+          cc		= ReactTools.getOwnerInstance($("form")[0]).props.channel,
+          msgC		= props.channel,
+          msgG		= guilds.filter(g => g == msgC.guild_id)[0], /*g.id not needed anymore since this.guilds just returns an array of guild ids.*/
+          author	= msg.author,
+          content	= this.MessageParser.parse(cc, $('.channelTextArea-1LDbYG textarea').val()).content,
+          text		= messages.map(m => m.content).join('\n'),
+          atServer	= msgC.guild_id && msgC.guild_id != cc.guild_id ? ` at ${msgG.name}` : '',
+          chName	= msgC.isDM() ? `@${msgC._getUsers()[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
           
       if (this.selectionP) {
         var start = this.selectionP.start,
@@ -534,8 +534,8 @@ var Citador = (() => {
   
   get guilds () { /*unreadMentionBar does not lead to the guilds wrapper anymore. Added a check to see if it grabbed the right module, and if it can't then use a manually written backup.*/
 	let grabByProps=BdApi.findModuleByProps('wrapper','unreadMentionsBar','unreadMentionsIndicatorBottom','unreadMentionsIndicatorTop'),manualBackup='wrapper-1Rf91z';
-	if(grabByProps)return ReactTools.getOwnerInstance($(`.${grabByProps.wrapper.replace(/ /g, '.')}`)[0]).props.guilds.map(o => o.guild);
-	else if(document.getElementsByClassName(manualBackup)[0])return ReactTools.getOwnerInstance(document.getElementsByClassName(manualBackup)[0]).props.guilds.map(o => o.guild);
+	if(grabByProps)return ReactTools.getOwnerInstance($(`.${grabByProps.wrapper.replace(/ /g, '.')}`)[0]).props.guilds;
+	else if(document.getElementsByClassName(manualBackup)[0])return ReactTools.getOwnerInstance(document.getElementsByClassName(manualBackup)[0]).props.guilds;
   }
   
   get defaultSettings() {
