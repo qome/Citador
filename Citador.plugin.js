@@ -533,9 +533,9 @@ var Citador = (() => {
   }
   
   get guilds () { /*unreadMentionBar does not lead to the guilds wrapper anymore. Added a check to see if it grabbed the right module, and if it can't then use a manually written backup.*/
-	let grabByProps=BdApi.findModuleByProps('wrapper','unreadMentionsBar','unreadMentionsIndicatorBottom','unreadMentionsIndicatorTop'),manualBackup='wrapper-1Rf91z';
+	let grabByProps=BdApi.findModuleByProps('wrapper','unreadMentionsBar','unreadMentionsIndicatorBottom','unreadMentionsIndicatorTop');
 	if(grabByProps)return ReactTools.getOwnerInstance($(`.${grabByProps.wrapper.replace(/ /g, '.')}`)[0]).props.guilds;
-	else if(document.getElementsByClassName(manualBackup)[0])return ReactTools.getOwnerInstance(document.getElementsByClassName(manualBackup)[0]).props.guilds;
+	else if(document.getElementsByClassName('wrapper-1Rf91z')[0])return ReactTools.getOwnerInstance(document.getElementsByClassName('wrapper-1Rf91z')[0]).props.guilds;
   }
   
   get defaultSettings() {
