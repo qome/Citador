@@ -121,15 +121,15 @@ var Citador = (() => {
                   self.quoteProps = $.extend(true, {}, ReactTools.getOwnerInstance(message[0]).props);
 
                   this.createQuote = function() {
-					var messageElem = $(message).clone().hide().appendTo(".quote-msg");
+                    var messageElem = $(message).clone().hide().appendTo(".quote-msg");
                     self.quoteMsg = $(".quote-msg");
                     
                     $('.quote-msg').find('.citar-btn').toggleClass('hidden');
                     
                     $('.quote-msg').find(`.embed-IeVjo6`).each(function() {
                       $(this).closest(`.container-1e22Ot`).remove();
-					});
-					
+                    });
+                    
                     $('.quote-msg').find(`.markup-2BOw-j`).each(function() {
                       let index = $(`.quote-msg ${DiscordSelectors.Messages.message}`).index($(`.quote-msg ${DiscordSelectors.Messages.message}`).has(this));
                       if (0 === self.quoteProps.messages[index].content.length + $(this).closest(`${DiscordSelectors.Messages.message}`).find(`.container-1e22Ot`).length) {
@@ -557,7 +557,7 @@ var Citador = (() => {
 	/*If the guild has no icon then use the acronym.*/
 	else if(guild.acronym)return `<a class="avatar-small${disabled}">${guild.acronym}</a>`;
 	/*All else fails, then give it soemthing to work with.*/
-	else return `<a class="avatar-small${disabled}">undefined</a>`;;
+	else return `<a class="avatar-small${disabled}">undefined</a>`;
   }
   
   saveSettings() {
