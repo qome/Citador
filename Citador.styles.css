@@ -58,6 +58,8 @@
 }
 .citador-guilds .guild {
   display: inline-block;
+  vertical-align:top;
+  margin:2px;
 }
 .citador-guilds .avatar-small {
   transition: filter 10ms ease-in-out;
