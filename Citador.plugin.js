@@ -279,7 +279,8 @@ var Citador = (() => {
           msgCnt    = this.MessageParser.parse(cc, $('.channelTextArea-1LDbYG textarea').val()),
           text      = messages.map(m => m.content).join('\n'),
           atServer  = msgC.guild_id && msgC.guild_id != cc.guild_id ? ` at ${msgG.name}` : '',
-          chName    = msgC.isDM() ? `@${msgC._getUsers()[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
+		  chName    = msgC.isDM() ? `@${msgC._getUsers()[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`,
+		  attachment= this.getMessageAttachments(messages);
           
       if (this.selectionP) {
         var start = this.selectionP.start,
@@ -303,7 +304,7 @@ var Citador = (() => {
             icon_url: avatarURL.startsWith(this.CDN_URL) ? avatarURL : `${this.ASSETS_URL}${avatarURL}`,
             url: `${this.quoteURL}${msgG ? `guild_id=${msgG.id}&` : ''}channel_id=${msgC.id}&message_id=${msg.id}`,
           },
-          description: text,
+          description: `${text.replace(/^\s*$(?:\r\n?|\n)/gm,'')}${attachment.length!==0?`\n${attachment.slice(1).join('\n')}`:``}`,//Cleanup extra newlines on the text content and cleanup the extra attachments and add them as links.
           footer: {
             text: `in ${chName}${atServer}`
           },
@@ -311,7 +312,7 @@ var Citador = (() => {
           timestamp: msg.timestamp.toISOString(),
         },
         attachments = messages.map(m => m.attachments).reduce((a, b) => a.concat(b));
-            
+           
       if (attachments.length >= 1) {
         var imgAt = attachments.filter(a => a.width);
         if(imgAt.length >= 1)
@@ -365,7 +366,7 @@ var Citador = (() => {
     var props = this.quoteProps;
     if (props) {
       if (e.shiftKey || $('.autocomplete-1TnWNR').length >= 1) return;
-    
+
       var messages	= props.messages.filter(m => !m.deleted),
           guilds	= this.guilds,
           msg		= props.messages[0],
@@ -376,8 +377,9 @@ var Citador = (() => {
           content	= this.MessageParser.parse(cc, $('.channelTextArea-1LDbYG textarea').val()).content,
           text		= messages.map(m => m.content).join('\n'),
           atServer	= msgC.guild_id && msgC.guild_id != cc.guild_id ? ` at ${msgG.name}` : '',
-          chName	= msgC.isDM() ? `@${msgC._getUsers()[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
-          
+		  chName	= msgC.isDM() ? `@${msgC._getUsers()[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`,
+		  attachment= this.getMessageAttachments(messages);
+		  
       if (this.selectionP) {
         var start = this.selectionP.start,
           end = this.selectionP.end;
@@ -392,10 +394,10 @@ var Citador = (() => {
             if(i >= start.index && i <= end.index) text += `${endText}\n`;
           }
         });
-      }
-      
+	  }
+	  
       const format = 'DD-MM-YYYY HH:mm';
-      content     += `\n${'```'}\n${this.MessageParser.unparse(text, cc.id).replace(/\n?(```((\w+)?\n)?)+/g, '\n').trim()}\n${'```'}`;
+      content     += `\n${'```'}\n${this.MessageParser.unparse(text, cc.id).replace(/\n?(```((\w+)?\n)?)+/g,'\n').trim().replace(/^\s*$(?:\r\n?|\n)/gm,'')}${attachment.length!==0?`\n${attachment.join('\n')}`:``}\n${'```'}`;//Get rid of empty newlines from the text content, and cleanup the extra attachments.
       content     += `\`${msg.nick || author.username} - ${this.moment(msg.timestamp).format(format)} | ${chName}${atServer}\``;
       content      = content.trim();
           
@@ -408,6 +410,12 @@ var Citador = (() => {
       e.stopPropagation();
       return;
     }
+  }
+
+  getMessageAttachments(messages) {
+	messages=messages.map(function(msgs){if(msgs.attachments.length!==0){return msgs.attachments.map(v=>`${v.url}`);}})||``;
+	messages=messages&&messages.length===1&&messages[0]?messages[0]:messages;
+	return messages.filter(x=>x!==undefined);
   }
   
   patchExternalLinks() {
@@ -531,13 +539,9 @@ var Citador = (() => {
     this.cancel();
   }
   
-  get guilds () { /*unreadMentionBar does not lead to the guilds wrapper anymore. Added a check to see if it grabbed the right module, and if it can't then use a manually written backup.*/
+  get guilds () {
 	let guildsModule=BdApi.findModuleByProps('getGuild','getGuilds');
 	if(guildsModule)return guildsModule.getGuilds();
-	/*let grabByProps=BdApi.findModuleByProps('wrapper','unreadMentionsBar','unreadMentionsIndicatorBottom','unreadMentionsIndicatorTop');
-	else if(grabByProps)return ReactTools.getOwnerInstance($(`.${grabByProps.wrapper.replace(/ /g, '.')}`)[0]).props.guilds;
-	else if(document.getElementsByClassName('wrapper-1Rf91z')[0])return ReactTools.getOwnerInstance(document.getElementsByClassName('wrapper-1Rf91z')[0]).props.guilds;
-	*/
   }
   
   get defaultSettings() {
@@ -557,7 +561,7 @@ var Citador = (() => {
 	/*If the guild has no icon then use the acronym.*/
 	else if(guild.acronym)return `<a class="avatar-small${disabled}">${guild.acronym}</a>`;
 	/*All else fails, then give it soemthing to work with.*/
-	else return `<a class="avatar-small${disabled}">undefined</a>`;
+	else return `<a class="avatar-small${disabled}">UDF</a>`;
   }
   
   saveSettings() {
