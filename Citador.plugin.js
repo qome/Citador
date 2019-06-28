@@ -272,7 +272,7 @@ var Citador = (() => {
           msg       = props.messages[0],
           cc        = ReactTools.getOwnerInstance($("form")[0]).props.channel,
           msgC      = props.channel,
-          msgG      = Object.keys(guilds).includes(msgC.guild_id)?guilds[msgC.guild_id]:undefined,//guilds.filter(g => g.id == msgC.guild_id)[0],
+          msgG      = guilds&&guilds[msgC.guild_id]?guilds[msgC.guild_id]:undefined,
           author    = msg.author,
           avatarURL = author.getAvatarURL(),
           color     = parseInt(msg.colorString ? msg.colorString.slice(1) : 'ffffff', 16),
@@ -371,7 +371,7 @@ var Citador = (() => {
           msg		= props.messages[0],
           cc		= ReactTools.getOwnerInstance($("form")[0]).props.channel,
           msgC		= props.channel,
-          msgG		= Object.keys(guilds).includes(msgC.guild_id)?guilds[msgC.guild_id]:undefined,//guilds.filter(g => g == msgC.guild_id)[0],
+          msgG		= guilds&&guilds[msgC.guild_id]?guilds[msgC.guild_id]:undefined,
           author	= msg.author,
           content	= this.MessageParser.parse(cc, $('.channelTextArea-1LDbYG textarea').val()).content,
           text		= messages.map(m => m.content).join('\n'),
@@ -553,7 +553,7 @@ var Citador = (() => {
 	/*If the guild has no icon then use the acronym.*/
 	else if(guild.acronym)return `<a class="avatar-small${disabled}">${guild.acronym}</a>`;
 	/*All else fails, then give it soemthing to work with.*/
-	else return `<a class="avatar-small${disabled}">undefined</a>`;
+	else return `<a class="avatar-small${disabled}">UDF</a>`;
   }
   
   saveSettings() {
