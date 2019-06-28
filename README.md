@@ -30,7 +30,7 @@ In order to install, follow the steps of a regular plugin installation:
 In order to install, follow the steps of a regular plugin installation:
 
 1. Download the [latest version](https://github.com/nirewen/Citador/raw/master/Citador.plugin.js). Use <kbd>Ctrl</kbd> + <kbd>S</kbd> to save.
-2. In a terminal `cd ~/Downloads` and hit enter
+2. In a terminal `cd ~/Downloads` (or the folder you saved the file at) and hit enter
 3. Then `mv Citador.plugin.js ~/.config/BetterDiscord/plugins` and hit enter
 
 You can use tab to autocomplete, and stuff is case sensitive.
