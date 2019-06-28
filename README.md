@@ -16,12 +16,24 @@ A plugin to facilitate quoting for a better conversation, without people being l
 
 ### Plugin installation
 
+#### Windows
+
 In order to install, follow the steps of a regular plugin installation:
 
 1. Download the [latest version](https://github.com/nirewen/Citador/raw/master/Citador.plugin.js). Use <kbd>Ctrl</kbd> + <kbd>S</kbd> to save.
 2. Type <kbd>Win</kbd> + <kbd>R</kbd> (or open 'Run' in start menu)
 3. Type `%appdata%/BetterDiscord/plugins` and hit `Enter`
 4. Place the downloaded file there.
+
+#### Linux
+
+In order to install, follow the steps of a regular plugin installation:
+
+1. Download the [latest version](https://github.com/nirewen/Citador/raw/master/Citador.plugin.js). Use <kbd>Ctrl</kbd> + <kbd>S</kbd> to save.
+2. In a terminal `cd ~/Downloads` and hit enter
+3. Then `mv Citador.plugin.js ~/.config/BetterDiscord/plugins` and hit enter
+
+You can use tab to autocomplete, and stuff is case sensitive.
 
 Any question, ask me on Discord: Nirewen`#9011`
 
