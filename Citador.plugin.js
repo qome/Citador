@@ -279,8 +279,7 @@ var Citador = (() => {
           msgCnt    = this.MessageParser.parse(cc, $('.channelTextArea-1LDbYG textarea').val()),
           text      = messages.map(m => m.content).join('\n'),
           atServer  = msgC.guild_id && msgC.guild_id != cc.guild_id ? ` at ${msgG.name}` : '',
-		  chName    = msgC.isDM() ? `@${msgC._getUsers()[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`,
-		  attachment= this.getMessageAttachments(messages);
+          chName    = msgC.isDM() ? `@${msgC._getUsers()[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
           
       if (this.selectionP) {
         var start = this.selectionP.start,
@@ -304,7 +303,7 @@ var Citador = (() => {
             icon_url: avatarURL.startsWith(this.CDN_URL) ? avatarURL : `${this.ASSETS_URL}${avatarURL}`,
             url: `${this.quoteURL}${msgG ? `guild_id=${msgG.id}&` : ''}channel_id=${msgC.id}&message_id=${msg.id}`,
           },
-          description: `${text.replace(/^\s*$(?:\r\n?|\n)/gm,'')}${attachment.length!==0?`\n${attachment.slice(1).join('\n')}`:``}`,//Cleanup extra newlines on the text content and cleanup the extra attachments and add them as links.
+          description: text,
           footer: {
             text: `in ${chName}${atServer}`
           },
@@ -312,7 +311,7 @@ var Citador = (() => {
           timestamp: msg.timestamp.toISOString(),
         },
         attachments = messages.map(m => m.attachments).reduce((a, b) => a.concat(b));
-           
+            
       if (attachments.length >= 1) {
         var imgAt = attachments.filter(a => a.width);
         if(imgAt.length >= 1)
@@ -366,7 +365,7 @@ var Citador = (() => {
     var props = this.quoteProps;
     if (props) {
       if (e.shiftKey || $('.autocomplete-1TnWNR').length >= 1) return;
-
+    
       var messages	= props.messages.filter(m => !m.deleted),
           guilds	= this.guilds,
           msg		= props.messages[0],
@@ -375,10 +374,10 @@ var Citador = (() => {
           msgG		= Object.keys(guilds).includes(msgC.guild_id)?guilds[msgC.guild_id]:undefined,//guilds.filter(g => g == msgC.guild_id)[0],
           author	= msg.author,
           content	= this.MessageParser.parse(cc, $('.channelTextArea-1LDbYG textarea').val()).content,
-          text		= this.getMessageContent(messages).join('\n'),
+          text		= messages.map(m => m.content).join('\n'),
           atServer	= msgC.guild_id && msgC.guild_id != cc.guild_id ? ` at ${msgG.name}` : '',
-		  chName	= msgC.isDM() ? `@${msgC._getUsers()[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
-		  
+          chName	= msgC.isDM() ? `@${msgC._getUsers()[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
+          
       if (this.selectionP) {
         var start = this.selectionP.start,
           end = this.selectionP.end;
@@ -393,22 +392,13 @@ var Citador = (() => {
             if(i >= start.index && i <= end.index) text += `${endText}\n`;
           }
         });
-	  }
-	  
+      }
+      
       const format = 'DD-MM-YYYY HH:mm';
-      content     += `\n${'```'}\n${this.MessageParser.unparse(text, cc.id).replace(/\n?(```((\w+)?\n)?)+/g,'\n').trim().replace(/^\s*$(?:\r\n?|\n)/gm,'')}\n${'```'}`;//Get rid of empty newlines from the text content.
+      content     += `\n${'```'}\n${this.MessageParser.unparse(text, cc.id).replace(/\n?(```((\w+)?\n)?)+/g, '\n').trim()}\n${'```'}`;
       content     += `\`${msg.nick || author.username} - ${this.moment(msg.timestamp).format(format)} | ${chName}${atServer}\``;
       content      = content.trim();
-	   
-	  if(content&&content.length>1999){//Catch the case where the message is over 2,000 characters long and tell the user that the message could not be sent.
-		  //BdApi.showToast('Quote greater than the character message limit.',{type:'danger'});//Toast is moved by the quote box, and if content has more than 2,000 characters then they probably wont be able to see it.
-		  console.log('Quote greater than the character message limit.');//Best that can be done for now.
-		  this.cancelQuote();
-		  e.preventDefault();
-		  e.stopPropagation();
-		  return;
-	  }
-
+          
       this.MessageController.sendMessage(cc.id, { content });
           
       ReactTools.getOwnerInstance($('form')[0]).setState({textValue: ''});
@@ -418,28 +408,6 @@ var Citador = (() => {
       e.stopPropagation();
       return;
     }
-  }
-
-  getMessageAttachments(messages) {//TODO replace with the function getMessageContent for embeded quotes.
-	//this.settings.useFallbackCodeblock: 0 is to never use codeblocks, 1 means always use codeblocks (if they are not on the blacklist), 2 Only use codeblocks when the user is without permissions to use embeds either on the blacklist or the user's settings.
-	messages=messages.map(function(msgs){if(msgs.attachments.length!==0){return msgs.attachments.map(v=>`${v.url}`);}})||``;
-	messages=messages&&messages.length===1&&messages[0]?messages[0]:messages;
-	return messages.filter(x=>x!==undefined);
-  }
-
-  getMessageContent(messages,options){
-	let cont=[],att=[];
-	if(!options||options.constructor!==Object||typeof options.removeFirstAttachment!=='boolean')options={removeFirstAttachment:false};
-	for(var message of messages){
-		if(message.content)cont.push(message.content);
-		att=message.attachments.length!==0?message.attachments.map((v)=>{return v.url}):[];
-		if(options.removeFirstAttachment&&message.attachments.length!==0&&att[0]){
-			att.shift();
-			options.removeFirstAttachment=false;
-		}
-		cont=cont.concat(att);
-	}
-	return cont;
   }
   
   patchExternalLinks() {
@@ -585,7 +553,7 @@ var Citador = (() => {
 	/*If the guild has no icon then use the acronym.*/
 	else if(guild.acronym)return `<a class="avatar-small${disabled}">${guild.acronym}</a>`;
 	/*All else fails, then give it soemthing to work with.*/
-	else return `<a class="avatar-small${disabled}">UDF</a>`;
+	else return `<a class="avatar-small${disabled}">undefined</a>`;
   }
   
   saveSettings() {
