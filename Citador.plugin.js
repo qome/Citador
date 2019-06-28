@@ -375,10 +375,9 @@ var Citador = (() => {
           msgG		= Object.keys(guilds).includes(msgC.guild_id)?guilds[msgC.guild_id]:undefined,//guilds.filter(g => g == msgC.guild_id)[0],
           author	= msg.author,
           content	= this.MessageParser.parse(cc, $('.channelTextArea-1LDbYG textarea').val()).content,
-          text		= messages.map(m => m.content).join('\n'),
+          text		= this.getMessageContent(messages).join('\n'),
           atServer	= msgC.guild_id && msgC.guild_id != cc.guild_id ? ` at ${msgG.name}` : '',
-		  chName	= msgC.isDM() ? `@${msgC._getUsers()[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`,
-		  attachment= this.getMessageAttachments(messages);
+		  chName	= msgC.isDM() ? `@${msgC._getUsers()[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
 		  
       if (this.selectionP) {
         var start = this.selectionP.start,
@@ -397,10 +396,19 @@ var Citador = (() => {
 	  }
 	  
       const format = 'DD-MM-YYYY HH:mm';
-      content     += `\n${'```'}\n${this.MessageParser.unparse(text, cc.id).replace(/\n?(```((\w+)?\n)?)+/g,'\n').trim().replace(/^\s*$(?:\r\n?|\n)/gm,'')}${attachment.length!==0?`\n${attachment.join('\n')}`:``}\n${'```'}`;//Get rid of empty newlines from the text content, and cleanup the extra attachments.
+      content     += `\n${'```'}\n${this.MessageParser.unparse(text, cc.id).replace(/\n?(```((\w+)?\n)?)+/g,'\n').trim().replace(/^\s*$(?:\r\n?|\n)/gm,'')}\n${'```'}`;//Get rid of empty newlines from the text content.
       content     += `\`${msg.nick || author.username} - ${this.moment(msg.timestamp).format(format)} | ${chName}${atServer}\``;
       content      = content.trim();
-          
+	   
+	  if(content&&content.length>1999){//Catch the case where the message is over 2,000 characters long and tell the user that the message could not be sent.
+		  //BdApi.showToast('Quote greater than the character message limit.',{type:'danger'});//Toast is moved by the quote box, and if content has more than 2,000 characters then they probably wont be able to see it.
+		  console.log('Quote greater than the character message limit.');//Best that can be done for now.
+		  this.cancelQuote();
+		  e.preventDefault();
+		  e.stopPropagation();
+		  return;
+	  }
+
       this.MessageController.sendMessage(cc.id, { content });
           
       ReactTools.getOwnerInstance($('form')[0]).setState({textValue: ''});
@@ -412,10 +420,26 @@ var Citador = (() => {
     }
   }
 
-  getMessageAttachments(messages) {
+  getMessageAttachments(messages) {//TODO replace with the function getMessageContent for embeded quotes.
+	//this.settings.useFallbackCodeblock: 0 is to never use codeblocks, 1 means always use codeblocks (if they are not on the blacklist), 2 Only use codeblocks when the user is without permissions to use embeds either on the blacklist or the user's settings.
 	messages=messages.map(function(msgs){if(msgs.attachments.length!==0){return msgs.attachments.map(v=>`${v.url}`);}})||``;
 	messages=messages&&messages.length===1&&messages[0]?messages[0]:messages;
 	return messages.filter(x=>x!==undefined);
+  }
+
+  getMessageContent(messages,options){
+	let cont=[],att=[];
+	if(!options||options.constructor!==Object||typeof options.removeFirstAttachment!=='boolean')options={removeFirstAttachment:false};
+	for(var message of messages){
+		if(message.content)cont.push(message.content);
+		att=message.attachments.length!==0?message.attachments.map((v)=>{return v.url}):[];
+		if(options.removeFirstAttachment&&message.attachments.length!==0&&att[0]){
+			att.shift();
+			options.removeFirstAttachment=false;
+		}
+		cont=cont.concat(att);
+	}
+	return cont;
   }
   
   patchExternalLinks() {
