@@ -111,7 +111,7 @@ var Citador = (() => {
                 ? $(this).find('time:not(.edited-DL9ECl)').first().prepend('<span class="citar-btn"></span>') 
                 : $(this).find('time:not(.edited-DL9ECl)').append('<span class="citar-btn"></span>');
                 
-              new Tooltip($(this).find('.citar-btn'), self.local.quoteTooltip);
+              //new Tooltip($(this).find('.citar-btn'), self.local.quoteTooltip);
               $(this).find('.citar-btn')
                 .on('mousedown.citador', () => false)
                 .click(function() {
@@ -149,7 +149,7 @@ var Citador = (() => {
                         self.removeQuoteAtIndex($(`.quote-msg ${DiscordSelectors.Messages.message}`).index($(`.quote-msg ${DiscordSelectors.Messages.message}`).has(this)));
                       })
                       .each(function() {
-                        new Tooltip($(this), self.local.deleteTooltip);
+                        //new Tooltip($(this), self.local.deleteTooltip);
                       });
                       
                     ($(`${DiscordSelectors.Messages.messages} ${DiscordSelectors.Messages.container}`).hasClass(`${DiscordClasses.Messages.containerCompact}`) 
@@ -171,11 +171,11 @@ var Citador = (() => {
                     
                     if (!self.canChat()) {
                       $('.quote-msg').find('.citar-btn.hidden:not(.cant-embed)').toggleClass('hidden cant-embed');
-                      new Tooltip($('.quote-msg').find('.citar-btn'), self.local.noChatTooltip, 'red');
+                      //new Tooltip($('.quote-msg').find('.citar-btn'), self.local.noChatTooltip, 'red');
                     }
                     else if (!self.canEmbed() && self.settings.useFallbackCodeblock == 0) {
                       $('.quote-msg').find('.citar-btn.hidden:not(.cant-embed)').toggleClass('hidden cant-embed');
-                      new Tooltip($('.quote-msg').find('.citar-btn'), self.local.noPermTooltip, 'red');
+                      //new Tooltip($('.quote-msg').find('.citar-btn'), self.local.noPermTooltip, 'red');
                     }
                     
                     messageElem.slideDown(150);
@@ -208,11 +208,11 @@ var Citador = (() => {
       
       if (!this.canChat()) {
         $('.quote-msg').find('.citar-btn.hidden:not(.cant-embed)').toggleClass('hidden cant-embed');
-        new Tooltip($('.quote-msg').find('.citar-btn'), this.local.noChatTooltip, 'red');
+        //new Tooltip($('.quote-msg').find('.citar-btn'), this.local.noChatTooltip, 'red');
       }
       else if (!this.canEmbed() && this.settings.useFallbackCodeblock == 0) {
         $('.quote-msg').find('.citar-btn.hidden:not(.cant-embed)').toggleClass('hidden cant-embed');
-        new Tooltip($('.quote-msg').find('.citar-btn'), this.local.noPermTooltip, 'red');
+        //new Tooltip($('.quote-msg').find('.citar-btn'), this.local.noPermTooltip, 'red');
       } else
         $('.quote-msg').find('.citar-btn:not(.hidden).cant-embed').toggleClass('hidden cant-embed');
     }
@@ -272,8 +272,7 @@ var Citador = (() => {
           msg       = props.messages[0],
           cc        = ReactTools.getOwnerInstance($("form")[0]).props.channel,
           msgC      = props.channel,
-          msgG      = guilds.filter(g => g.id == msgC.guild_id)[0],
-          
+          msgG      = guilds&&guilds[msgC.guild_id]?guilds[msgC.guild_id]:undefined,
           author    = msg.author,
           avatarURL = author.getAvatarURL(),
           color     = parseInt(msg.colorString ? msg.colorString.slice(1) : 'ffffff', 16),
@@ -367,17 +366,17 @@ var Citador = (() => {
     if (props) {
       if (e.shiftKey || $('.autocomplete-1TnWNR').length >= 1) return;
     
-      var messages  = props.messages.filter(m => !m.deleted),
-          guilds    = this.guilds,
-          msg      = props.messages[0],
-          cc        = ReactTools.getOwnerInstance($("form")[0]).props.channel,
-          msgC      = props.channel,
-          msgG      = guilds.filter(g => g.id == msgC.guild_id)[0],
-          author    = msg.author,
-          content   = this.MessageParser.parse(cc, $('.channelTextArea-1LDbYG textarea').val()).content,
-          text      = messages.map(m => m.content).join('\n'),
-          atServer  = msgC.guild_id && msgC.guild_id != cc.guild_id ? ` at ${msgG.name}` : '',
-          chName    = msgC.isDM() ? `@${msgC._getUsers()[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
+      var messages	= props.messages.filter(m => !m.deleted),
+          guilds	= this.guilds,
+          msg		= props.messages[0],
+          cc		= ReactTools.getOwnerInstance($("form")[0]).props.channel,
+          msgC		= props.channel,
+          msgG		= guilds&&guilds[msgC.guild_id]?guilds[msgC.guild_id]:undefined,
+          author	= msg.author,
+          content	= this.MessageParser.parse(cc, $('.channelTextArea-1LDbYG textarea').val()).content,
+          text		= messages.map(m => m.content).join('\n'),
+          atServer	= msgC.guild_id && msgC.guild_id != cc.guild_id ? ` at ${msgG.name}` : '',
+          chName	= msgC.isDM() ? `@${msgC._getUsers()[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
           
       if (this.selectionP) {
         var start = this.selectionP.start,
@@ -532,10 +531,9 @@ var Citador = (() => {
     this.cancel();
   }
   
-  get guilds () { /*unreadMentionBar does not lead to the guilds wrapper anymore. Added a check to see if it grabbed the right module, and if it can't then use a manually written backup.*/
-	let grabByProps=BdApi.findModuleByProps('wrapper','unreadMentionsBar','unreadMentionsIndicatorBottom','unreadMentionsIndicatorTop'),manualBackup='wrapper-1Rf91z';
-	if(grabByProps)return ReactTools.getOwnerInstance($(`.${grabByProps.wrapper.replace(/ /g, '.')}`)[0]).props.guilds.map(o => o.guild);
-	else if(document.getElementsByClassName(manualBackup)[0])return ReactTools.getOwnerInstance(document.getElementsByClassName(manualBackup)[0]).props.guilds.map(o => o.guild);
+  get guilds () {
+	let guildsModule=BdApi.findModuleByProps('getGuild','getGuilds');
+	if(guildsModule)return guildsModule.getGuilds();
   }
   
   get defaultSettings() {
@@ -547,10 +545,15 @@ var Citador = (() => {
   }
   
   getIconTemplate(guild) {
-    let disabled = this.settings.disabledServers.includes(guild.id) ? ' disabled' : '';
-    return guild.icon
-      ? `<a class="avatar-small ${disabled}" style="background-image: url(https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp)"></a>`
-      : `<a class="avatar-small ${disabled}">${guild.acronym}</a>`;
+	let disabled=guild.id&&this.settings.disabledServers.includes(guild.id)?' disabled':'';
+	/*If the guild has the animated icon feature then try to use the animated icon, has a CSS backup image if the guild is not using the animated icon.*/
+	if(guild.icon&&guild.hasFeature("ANIMATED_ICON"))return `<a class="animatedGuild avatar-small${disabled}" style="background-image:url(https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.gif),url(https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp)"></a>`;
+	/*If the guild has an icon and does not have the animated icon feature then show the normal icon.*/
+	else if(guild.icon)return `<a class="avatar-small${disabled}" style="background-image:url(https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.webp)"></a>`;
+	/*If the guild has no icon then use the acronym.*/
+	else if(guild.acronym)return `<a class="avatar-small${disabled}">${guild.acronym}</a>`;
+	/*All else fails, then give it soemthing to work with.*/
+	else return `<a class="avatar-small${disabled}">UDF</a>`;
   }
   
   saveSettings() {
@@ -616,17 +619,17 @@ var Citador = (() => {
         .parent()
         .append(
           $('<div class="citador-guilds">').append(
-            this.guilds.map(guild => {
-              if (this.forcedGuilds.includes(guild.id)) return;
-              let guildEl = this.GuildElement(guild);
+            Object.keys(this.guilds).map(guildId => {
+              if (this.forcedGuilds.includes(guildId)) return;
+              let guildEl = this.GuildElement(this.guilds[guildId]);
               return guildEl
                 .click(() => {
-                  if (this.settings.disabledServers.includes(guild.id)) {
-                    this.settings.disabledServers.splice(this.settings.disabledServers.indexOf(guild.id), 1);
+                  if (this.settings.disabledServers.includes(guildId)) {
+                    this.settings.disabledServers.splice(this.settings.disabledServers.indexOf(guildId), 1);
                     guildEl.find('.avatar-small')
                       .toggleClass('disabled');
                   } else {
-                    this.settings.disabledServers.push(guild.id);
+                    this.settings.disabledServers.push(guildId);
                     guildEl.find('.avatar-small')
                       .toggleClass('disabled');
                   }
@@ -725,7 +728,7 @@ var Citador = (() => {
          </div>
        </div>
      </div>`);
-    new Tooltip(guildEl.find('.avatar-small'), guild.name);
+    //new Tooltip(guildEl.find('.avatar-small'), guild.name);
     return guildEl;
   }
 }
