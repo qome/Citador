@@ -395,7 +395,7 @@ var Citador = (() => {
       }
       
       const format = 'DD-MM-YYYY HH:mm';
-      content     += `\n${'```'}\n${this.MessageParser.unparse(text, cc.id).replace(/\n?(```((\w+)?\n)?)+/g, '\n').trim()}\n${'```'}`;
+      content     += `\n${'> '}${this.MessageParser.unparse(text, cc.id).replace(/\n?(```((\w+)?\n)?)+/g, '\n').replace(/\n/g, '\n> ').trim()}\n`;
       content     += `\`${msg.nick || author.username} - ${this.moment(msg.timestamp).format(format)} | ${chName}${atServer}\``;
       content      = content.trim();
           
