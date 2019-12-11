@@ -284,7 +284,7 @@ var Citador = (() => {
           author    = msg.author,
           avatarURL = author.getAvatarURL(),
           color     = parseInt(msg.colorString ? msg.colorString.slice(1) : 'ffffff', 16),
-          msgCnt    = this.MessageParser.parse(cc, $('.channelTextArea-1LDbYG textarea').val()),
+          msgCnt    = this.MessageParser.parse(cc, $('.textArea-2Spzkt').text()),
           text      = messages.map(m => m.content).join('\n'),
           atServer  = msgC.guild_id && msgC.guild_id != cc.guild_id ? ` at ${msgG.name}` : '',
           chName    = msgC.isDM() ? `@${msgC.rawRecipients[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
@@ -381,7 +381,7 @@ var Citador = (() => {
           msgC		= props.channel,
           msgG		= guilds&&guilds[msgC.guild_id]?guilds[msgC.guild_id]:undefined,
           author	= msg.author,
-          content	= this.MessageParser.parse(cc, $('.channelTextArea-1LDbYG textarea').val()).content,
+          content	= this.MessageParser.parse(cc, $('.textArea-2Spzkt').text()).content,
           text		= messages.map(m => m.content).join('\n'),
           atServer	= msgC.guild_id && msgC.guild_id != cc.guild_id ? ` at ${msgG.name}` : '',
           chName	= msgC.isDM() ? `@${msgC.rawRecipients[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
