@@ -204,6 +204,14 @@
 				"title": "Mention the quoted user",
 				"description": "Whether to mention the quoted user or not. You can also click their avatar to attach their mention to your message."
 			},
+			"quoteBeforeMessage": {
+				"title": "Send quote before message",
+				"description": "Only works with codeblocks."
+			},
+			"excludeDetails": {
+				"title": "Exclude details for Codeblocks",
+				"description": "Exclude details like date, channel name and username when using codeblocks quote format."
+			},
 			"useFallbackCodeblock": {
 				"title": "Use codeblock quote format",
 				"choices": ["Never", "Always", "Only when without permission"]
@@ -234,6 +242,14 @@
 			"mentionUser": {
 				"title": "Mencionar al usuario citado",
 				"description": "Ya sea para mencionar al usuario que citaste o no. También puedes hacer click en sus avatares y adjuntar su mención a tu mensaje."
+			},
+			"quoteBeforeMessage": {
+				"title": "Enviar cita antes del mensaje",
+				"description": "Solo funciona con el formato de bloque de código."
+			},
+			"excludeDetails": {
+				"title": "Excluir detalles para las citas",
+				"description": "Excluye detalles como fecha, canal y nombre de usuario del formato de bloque de código."
 			},
 			"useFallbackCodeblock": {
 				"title": "Usar el formato de bloque de código",
