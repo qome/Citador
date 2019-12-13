@@ -38,7 +38,7 @@ var Citador = (() => {
   
   getName         () { return "Citador";            }
   getDescription  () { return this.local.description}
-  getVersion      () { return "1.8.1";             }
+  getVersion      () { return "1.9";                }
   getAuthor       () { return "Nirewen";            }
   unload          () { this.deleteEverything();     }
   stop            () { this.deleteEverything();     }
@@ -284,7 +284,7 @@ var Citador = (() => {
           author    = msg.author,
           avatarURL = author.getAvatarURL(),
           color     = parseInt(msg.colorString ? msg.colorString.slice(1) : 'ffffff', 16),
-          msgCnt    = this.MessageParser.parse(cc, $('.textArea-2Spzkt').text()),
+          msgCnt    = this.MessageParser.parse(cc, $('.slateTextArea-1bp44y').text()),
           text      = messages.map(m => m.content).join('\n'),
           atServer  = msgC.guild_id && msgC.guild_id != cc.guild_id ? ` at ${msgG.name}` : '',
           chName    = msgC.isDM() ? `@${msgC.rawRecipients[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
@@ -346,7 +346,7 @@ var Citador = (() => {
         type: "send",
         message: {
           channelId: cc.id,
-          content: msgCnt.content,
+          content: msgCnt.content.replace('﻿', ''), // Weird character when sending an empty message
           tts: false,
           nonce: message.id,
           embed
@@ -360,7 +360,7 @@ var Citador = (() => {
         }));
       });
           
-      ReactTools.getOwnerInstance($('form')[0]).setState({textValue: ''});
+      ReactTools.getOwnerInstance($('form')[0]).setState({textValue: null});
     
       this.cancelQuote();
       e.preventDefault();
@@ -381,7 +381,7 @@ var Citador = (() => {
           msgC		= props.channel,
           msgG		= guilds&&guilds[msgC.guild_id]?guilds[msgC.guild_id]:undefined,
           author	= msg.author,
-          content	= this.MessageParser.parse(cc, $('.textArea-2Spzkt').text()).content,
+          content	= this.MessageParser.parse(cc, $('.slateTextArea-1bp44y').text()).content,
           text		= messages.map(m => m.content).join('\n'),
           atServer	= msgC.guild_id && msgC.guild_id != cc.guild_id ? ` at ${msgG.name}` : '',
           chName	= msgC.isDM() ? `@${msgC.rawRecipients[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
@@ -403,13 +403,21 @@ var Citador = (() => {
       }
       
       const format = 'DD-MM-YYYY HH:mm';
-      content     += `\n> ${this.MessageParser.unparse(text, cc.id).replace(/\n/g, '\n> ').replace(/(http(s)?):\/\/[(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g, "<$&>").trim()}\n`;
-      content     += `\`${msg.nick || author.username} - ${this.moment(msg.timestamp).format(format)} | ${chName}${atServer}\``;
-      content      = content.trim();
+      if(this.settings.quoteBeforeMessage == true){
+	content     = content.replace('﻿', '');
+	content     = `> ${this.MessageParser.unparse(text, cc.id).replace(/\n/g, '\n> ').replace(/(http(s)?):\/\/[(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g, "<$&>").trim()}\n${content}\n`;
+	if(this.settings.excludeDetails == false) content     += `\`${msg.nick || author.username} - ${this.moment(msg.timestamp).format(format)} | ${chName}${atServer}\``;
+	content      = content.trim();
+      } else {
+	content     = content.replace('﻿', '');
+	content     += `\n> ${this.MessageParser.unparse(text, cc.id).replace(/\n/g, '\n> ').replace(/(http(s)?):\/\/[(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g, "<$&>").trim()}\n`;
+	if(this.settings.excludeDetails == false) content     += `\`${msg.nick || author.username} - ${this.moment(msg.timestamp).format(format)} | ${chName}${atServer}\``;
+	content      = content.trim();
+      }
           
       this.MessageController.sendMessage(cc.id, { content });
           
-      ReactTools.getOwnerInstance($('form')[0]).setState({textValue: ''});
+      ReactTools.getOwnerInstance($('form')[0]).setState({textValue: null});
     
       this.cancelQuote();
       e.preventDefault();
@@ -548,7 +556,9 @@ var Citador = (() => {
     return {
       useFallbackCodeblock: 1,
       mentionUser: false,
-      disabledServers: []
+      disabledServers: [],
+      quoteBeforeMessage: false,
+      excludeDetails: false
     };
   }
   
@@ -602,6 +612,20 @@ var Citador = (() => {
           }).getElement()
         )
         /*.parent()*/,
+      $(defaultForm)
+        .append(
+          new Settings.Switch(this.local.settings.quoteBeforeMessage.title, this.local.settings.quoteBeforeMessage.description, this.settings.quoteBeforeMessage, value => {
+            this.settings.quoteBeforeMessage = value;
+            this.saveSettings();
+          }).getElement()
+        ),
+      $(defaultForm)
+        .append(
+          new Settings.Switch(this.local.settings.excludeDetails.title, this.local.settings.excludeDetails.description, this.settings.excludeDetails, value => {
+            this.settings.excludeDetails = value;
+            this.saveSettings();
+          }).getElement()
+        ),
       $(defaultForm)
         .find('.h5')
         .toggleClass('title-3sZWYQ size12-3R0845 height16-2Lv3qA weightSemiBold-NJexzi defaultMarginh5-2mL-bP marginBottom8-AtZOdT')
