@@ -18,6 +18,14 @@
 				"title": "Menționează utilizatorul citat",
 				"description": "Dacă să fie menționat utilizatorul citat sau nu. Poți, de asemenea, apăsa pe avatarul utilizatorului pentru a atașa o mențiune in mesajul tău."
 			},
+			"quoteBeforeMessage": {
+				"title": "Send quote before message",
+				"description": "Only works with codeblocks."
+			},
+			"excludeDetails": {
+				"title": "Exclude details for Codeblocks",
+				"description": "Exclude details like date, channel name and username when using codeblocks quote format."
+			},
 			"useFallbackCodeblock": {
 				"title": "Folosește formatul de citat codeblock",
 				"choices": ["Niciodată", "Mereu", "Numai atunci când nu ai permisiuni"]
@@ -48,6 +56,14 @@
 		"mentionUser": {
 			"title": "Mencionar o usuário citado",
 			"description": "Mencionar ou não o usuário que se está citando. Você pode clicar no avatar dele no preview para adicionar a menção à mensagem."
+		},
+		"quoteBeforeMessage": {
+			"title": "Send quote before message",
+			"description": "Only works with codeblocks."
+		},
+		"excludeDetails": {
+			"title": "Exclude details for Codeblocks",
+			"description": "Exclude details like date, channel name and username when using codeblocks quote format."
 		},
 		"useFallbackCodeblock": {
 			"title": "Usar citação em formato de bloco de código",
@@ -80,6 +96,14 @@
 				"title": "Zitierte Person erwähnen",
 				"description": "Ob die zitierte Person zu @erwähnen ist oder nicht. Du kannst auch auf den Avatar der Person klicken, um die @Erwähnung dem Zitat hinzuzufügen."
 			},
+			"quoteBeforeMessage": {
+				"title": "Send quote before message",
+				"description": "Only works with codeblocks."
+			},
+			"excludeDetails": {
+				"title": "Exclude details for Codeblocks",
+				"description": "Exclude details like date, channel name and username when using codeblocks quote format."
+			},
 			"useFallbackCodeblock": {
 				"title": "Nutze Codeblöcke zur darstellung von Zitaten",
 				"choices": ["Niemals", "Immer", "Nur, wenn keine Berechtigung für Einbettungen"]
@@ -110,6 +134,14 @@
 			"mentionUser": {
 				"title": "Упоминать цитируемого пользователя",
 				"description": "Переключает упоминание пользователя при цитировании. Вы так же можете нажать на аватарку цитируемого пользователя, чтобы упомянуть его."
+			},
+			"quoteBeforeMessage": {
+				"title": "Send quote before message",
+				"description": "Only works with codeblocks."
+			},
+			"excludeDetails": {
+				"title": "Exclude details for Codeblocks",
+				"description": "Exclude details like date, channel name and username when using codeblocks quote format."
 			},
 			"useFallbackCodeblock": {
 				"title": "Форматировать цитаты блоками кода",
@@ -142,6 +174,14 @@
 				"title": "引用されたユーザーにメンションを飛ばす",
 				"description": "引用されたユーザーにメンションを送るかどうかの設定です。アバターアイコンをクリックしてもメンションを追加できます。"
 			},
+			"quoteBeforeMessage": {
+				"title": "Send quote before message",
+				"description": "Only works with codeblocks."
+			},
+			"excludeDetails": {
+				"title": "Exclude details for Codeblocks",
+				"description": "Exclude details like date, channel name and username when using codeblocks quote format."
+			},
 			"useFallbackCodeblock": {
 				"title": "引用にコードブロックを使用する",
 				"choices": ["絶対に行わない", "常に行う", "権限が無いときのみ使用する"]
@@ -172,6 +212,14 @@
 			"mentionUser": {
 				"title": "Mentionner l'utilisateur cité",
 				"description": "Choisir de mentionner l'utilisateur ou non. Vous pouvez aussi cliquer sur l'avatar de l'utilisateur cité."
+			},
+			"quoteBeforeMessage": {
+				"title": "Send quote before message",
+				"description": "Only works with codeblocks."
+			},
+			"excludeDetails": {
+				"title": "Exclude details for Codeblocks",
+				"description": "Exclude details like date, channel name and username when using codeblocks quote format."
 			},
 			"useFallbackCodeblock": {
 				"title": "Utiliser le format 'codeblock'",
@@ -281,6 +329,14 @@
 			"mentionUser": {
 				"title": "Zmínit citovaného uživatele",
 				"description": "Nastaví, jestli se má ve zprávě zmínit citovaný uživatel, nebo ne. Můžete také kliknout na jejich avatar, čímž je ve zprávě zmíníte."
+			},
+			"quoteBeforeMessage": {
+				"title": "Send quote before message",
+				"description": "Only works with codeblocks."
+			},
+			"excludeDetails": {
+				"title": "Exclude details for Codeblocks",
+				"description": "Exclude details like date, channel name and username when using codeblocks quote format."
 			},
 			"useFallbackCodeblock": {
 				"title": "Citovat pomocí bloků kódu",
