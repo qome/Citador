@@ -192,10 +192,10 @@ var Citador = (() => {
                   if ($(`.quote-msg ${MessageSelectors.container}`).length > 0)
                     $(`.quote-msg ${MessageSelectors.container}`).remove();
                   else
-                    $('.channelTextArea-1LDbYG').prepend('<div class="quote-msg"></div>');
+                    $('.channelTextArea-rNsIhG').prepend('<div class="quote-msg"></div>');
                   
                   this.createQuote();
-                  $('.channelTextArea-1LDbYG').focus();
+                  $('.channelTextArea-rNsIhG').focus();
                 });
             }
           })
@@ -212,7 +212,7 @@ var Citador = (() => {
     if (this.quoteProps) {
       this.attachParser();
       
-      $('.channelTextArea-1LDbYG').prepend(this.quoteMsg);
+      $('.channelTextArea-rNsIhG').prepend(this.quoteMsg);
       
       if (!this.canChat()) {
         $('.quote-msg').find('.citar-btn.hidden:not(.cant-embed)').toggleClass('hidden cant-embed');
@@ -233,7 +233,7 @@ var Citador = (() => {
   }
   
   attachParser() {
-    var el = $('.channelTextArea-1LDbYG');
+    var el = $('.channelTextArea-rNsIhG');
     if (el.length == 0) return;
     
     const handleKeypress = (e) => {
@@ -274,17 +274,21 @@ var Citador = (() => {
     var props = this.quoteProps;
     if (props) {
       if (e.shiftKey || $('.autocomplete-1vrmpx').length >= 1) return;
+	    
+      $('.slateTextArea-1Mkdgw img').each(function(){
+	$(this).replaceWith($(this).attr('aria-label'));
+      });
     
       var messages  = props.messages.filter(m => !m.deleted),
           guilds    = this.guilds,
           msg       = props.messages[0],
-          cc        = ReactTools.getOwnerInstance($("form")[0]).props.channel,
+          cc        = ReactTools.getOwnerInstance($("form")[0]).props.children.props.children[0].props.channel,
           msgC      = props.channel,
           msgG      = guilds&&guilds[msgC.guild_id]?guilds[msgC.guild_id]:undefined,
           author    = msg.author,
           avatarURL = author.getAvatarURL(),
           color     = parseInt(msg.colorString ? msg.colorString.slice(1) : 'ffffff', 16),
-          msgCnt    = this.MessageParser.parse(cc, $('.slateTextArea-1bp44y').text()),
+          msgCnt    = this.MessageParser.parse(cc, $('.slateTextArea-1Mkdgw').text()),
           text      = messages.map(m => m.content).join('\n'),
           atServer  = msgC.guild_id && msgC.guild_id != cc.guild_id ? ` at ${msgG.name}` : '',
           chName    = msgC.isDM() ? `@${msgC.rawRecipients[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
@@ -373,15 +377,19 @@ var Citador = (() => {
     var props = this.quoteProps;
     if (props) {
       if (e.shiftKey || $('.autocomplete-1TnWNR').length >= 1) return;
+
+      $('.slateTextArea-1Mkdgw img').each(function(){
+	$(this).replaceWith($(this).attr('aria-label'));
+      });
     
       var messages	= props.messages.filter(m => !m.deleted),
           guilds	= this.guilds,
           msg		= props.messages[0],
-          cc		= ReactTools.getOwnerInstance($("form")[0]).props.channel,
+          cc		= ReactTools.getOwnerInstance($("form")[0]).props.children.props.children[0].props.channel,
           msgC		= props.channel,
           msgG		= guilds&&guilds[msgC.guild_id]?guilds[msgC.guild_id]:undefined,
           author	= msg.author,
-          content	= this.MessageParser.parse(cc, $('.slateTextArea-1bp44y').text()).content,
+          content	= this.MessageParser.parse(cc, $('.slateTextArea-1Mkdgw').text()).content,
           text		= messages.map(m => m.content).join('\n'),
           atServer	= msgC.guild_id && msgC.guild_id != cc.guild_id ? ` at ${msgG.name}` : '',
           chName	= msgC.isDM() ? `@${msgC.rawRecipients[0].username}` : msgC.isGroupDM() ? `${msgC.name}` : `#${msgC.name}`;
