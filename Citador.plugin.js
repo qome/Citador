@@ -38,7 +38,7 @@ var Citador = (() => {
   
   getName         () { return "Citador";            }
   getDescription  () { return this.local.description}
-  getVersion      () { return "1.9";                }
+  getVersion      () { return "1.10";              }
   getAuthor       () { return "Nirewen";            }
   unload          () { this.deleteEverything();     }
   stop            () { this.deleteEverything();     }
@@ -72,7 +72,15 @@ var Citador = (() => {
 	({PluginUpdater, WebpackModules, Tooltip, Modals, ReactTools, ContextMenu, Patcher, Settings, PluginUtilities, DiscordAPI} = ZLibrary);
     let self = this;
     PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), "https://raw.githubusercontent.com/nirewen/Citador/master/Citador.plugin.js");
-    this.MessageParser     = WebpackModules.findByUniqueProperties(["createBotMessage"]);
+    const findByUniquePropertiesAndPropertyCount = (propNames, propCount) => {
+        return WebpackModules.find(module => {
+            if(propNames.every(prop => module[prop] !== undefined) && Object.keys(module).length === propCount){
+                return true;
+            }
+        });
+    }
+    this.MessageParser     = findByUniquePropertiesAndPropertyCount(['parse', 'unparse'], 2);
+    this.SendMessage       = WebpackModules.findByUniqueProperties(["createBotMessage"]);
     this.MessageQueue      = WebpackModules.findByUniqueProperties(["enqueue"]);
     this.MessageController = WebpackModules.findByUniqueProperties(["sendClydeError"]);
     this.EventDispatcher   = WebpackModules.findByUniqueProperties(["dispatch"]);
@@ -344,7 +352,7 @@ var Citador = (() => {
         }
       }
       
-      let message = this.MessageParser.createMessage(cc.id, msgCnt.content);
+      let message = this.SendMessage.createBotMessage(cc.id, msgCnt.content);
       
       this.MessageQueue.enqueue({
         type: "send",
@@ -364,7 +372,12 @@ var Citador = (() => {
         }));
       });
           
-      ReactTools.getOwnerInstance($('form')[0]).setState({textValue: null});
+      //ReactTools.getOwnerInstance($('form')[0]).setState({textValue: null});
+	    
+      if (BDFDB.DOMUtils.getParent(BDFDB.dotCN.chatform, document.activeElement)) { // Credits to DevilBro
+        let instance = BDFDB.ReactUtils.findOwner(chatform, {name:"ChannelTextAreaForm"}) || BDFDB.ReactUtils.findOwner(chatform, {name:"ChannelTextAreaForm", up:true});
+        if (instance) instance.setState({textValue:"", richValue:BDFDB.LibraryModules.SlateUtils.deserialize("")});
+      }
     
       this.cancelQuote();
       e.preventDefault();
@@ -425,7 +438,12 @@ var Citador = (() => {
           
       this.MessageController.sendMessage(cc.id, { content });
           
-      ReactTools.getOwnerInstance($('form')[0]).setState({textValue: null});
+      //ReactTools.getOwnerInstance($('form')[0]).setState({textValue: null});
+	    
+      if (BDFDB.DOMUtils.getParent(BDFDB.dotCN.chatform, document.activeElement)) { // Credits to DevilBro
+        let instance = BDFDB.ReactUtils.findOwner(chatform, {name:"ChannelTextAreaForm"}) || BDFDB.ReactUtils.findOwner(chatform, {name:"ChannelTextAreaForm", up:true});
+        if (instance) instance.setState({textValue:"", richValue:BDFDB.LibraryModules.SlateUtils.deserialize("")});
+      }
     
       this.cancelQuote();
       e.preventDefault();
