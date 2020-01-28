@@ -374,7 +374,8 @@ var Citador = (() => {
           
       //ReactTools.getOwnerInstance($('form')[0]).setState({textValue: null});
 	    
-      if (BDFDB.DOMUtils.getParent(BDFDB.dotCN.chatform, document.activeElement)) { // Credits to DevilBro
+      let chatform = BDFDB.DOMUtils.getParent(BDFDB.dotCN.chatform, document.activeElement);
+      if (chatform) { // Credits to DevilBro
         let instance = BDFDB.ReactUtils.findOwner(chatform, {name:"ChannelTextAreaForm"}) || BDFDB.ReactUtils.findOwner(chatform, {name:"ChannelTextAreaForm", up:true});
         if (instance) instance.setState({textValue:"", richValue:BDFDB.LibraryModules.SlateUtils.deserialize("")});
       }
@@ -440,7 +441,8 @@ var Citador = (() => {
           
       //ReactTools.getOwnerInstance($('form')[0]).setState({textValue: null});
 	    
-      if (BDFDB.DOMUtils.getParent(BDFDB.dotCN.chatform, document.activeElement)) { // Credits to DevilBro
+      let chatform = BDFDB.DOMUtils.getParent(BDFDB.dotCN.chatform, document.activeElement);
+      if (chatform) { // Credits to DevilBro
         let instance = BDFDB.ReactUtils.findOwner(chatform, {name:"ChannelTextAreaForm"}) || BDFDB.ReactUtils.findOwner(chatform, {name:"ChannelTextAreaForm", up:true});
         if (instance) instance.setState({textValue:"", richValue:BDFDB.LibraryModules.SlateUtils.deserialize("")});
       }
