@@ -282,10 +282,11 @@ var Citador = (() => {
   }
   
   attachMention(user) {
-    if (!$('form')[0]) return;
-    ReactTools.getOwnerInstance($('form')[0]).setState({
-      textValue: ReactTools.getOwnerInstance($('form')[0]).state.textValue + `@${user.username}#${user.discriminator} `
-    });
+    var chatform = BDFDB.DOMUtils.getParent(BDFDB.dotCN.chatform, document.activeElement);
+    if (chatform) { // Credits to DevilBro
+        let instance = BDFDB.ReactUtils.findOwner(chatform, {name:"ChannelTextAreaForm"}) || BDFDB.ReactUtils.findOwner(chatform, {name:"ChannelTextAreaForm", up:true});
+        if (instance) instance.setState({textValue:`@${user.username}#${user.discriminator} `, richValue:BDFDB.LibraryModules.SlateUtils.deserialize(`@${user.username}#${user.discriminator} `)});
+    }
   }
   
   sendEmbedQuote(e) {
