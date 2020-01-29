@@ -52,6 +52,16 @@ var Citador = (() => {
 			libraryScript.setAttribute('id','ZLibraryScript');
 			document.head.appendChild(libraryScript);
 		}
+		let bdfdbLibrary = document.querySelector("head script#BDFDBLibraryScript");
+		if (!bdfdbLibrary || (performance.now() - bdfdbLibrary.getAttribute("date")) > 600000) {
+			if (bdfdbLibrary) bdfdbLibrary.remove();
+			bdfdbLibrary = document.createElement("script");
+			bdfdbLibrary.setAttribute("id", "BDFDBLibraryScript");
+			bdfdbLibrary.setAttribute("type", "text/javascript");
+			bdfdbLibrary.setAttribute("src", "https://mwittrien.github.io/BetterDiscordAddons/Plugins/BDFDB.min.js");
+			bdfdbLibrary.setAttribute("date", performance.now());
+			document.head.appendChild(bdfdbLibrary);
+		}
   }
   async start     () {
     this.inject('link', {
