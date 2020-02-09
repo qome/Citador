@@ -1,4 +1,4 @@
-//META{"name":"Citador","source":"https://github.com/nirewen/Citador/blob/master/Citador.plugin.js","website":"https://github.com/nirewen"}*//
+//META{"name":"Citador","source":"https://github.com/NightWolf1038/Citador/blob/master/Citador.plugin.js","website":"https://github.com/NightWolf1038"}*//
 
 /* global $, Element */
 
@@ -20,7 +20,7 @@ var Citador = (() => {
   return class Citador {
 
   constructor() {
-    this.downloadJSON("https://raw.githubusercontent.com/nirewen/Citador/master/Citador.locales.json").then((json) => {
+    this.downloadJSON("https://raw.githubusercontent.com/NightWolf1038/Citador/master/Citador.locales.json").then((json) => {
       this.strings = json;
     })
   }
@@ -38,8 +38,8 @@ var Citador = (() => {
   
   getName         () { return "Citador";            }
   getDescription  () { return this.local.description}
-  getVersion      () { return "1.8.1";             }
-  getAuthor       () { return "Nirewen";            }
+  getVersion      () { return "1.9";             }
+  getAuthor       () { return "NightWolf1038";            }
   unload          () { this.deleteEverything();     }
   stop            () { this.deleteEverything();     }
   load            () {
@@ -58,10 +58,10 @@ var Citador = (() => {
       type: 'text/css',
       id: 'citador-css',
       rel: 'stylesheet',
-      href: 'https://rawcdn.githack.com/nirewen/Citador/master/Citador.styles.css?v=2'
+      href: 'https://rawcdn.githack.com/NightWolf1038/Citador/master/Citador.styles.css?v=2'
     });
 
-    if(!this.strings)this.strings=await this.downloadJSON("https://raw.githubusercontent.com/nirewen/Citador/master/Citador.locales.json");
+    if(!this.strings)this.strings=await this.downloadJSON("https://raw.githubusercontent.com/NightWolf1038/Citador/master/Citador.locales.json");
 
 	let libraryScript=document.getElementById('ZLibraryScript');
     if(typeof window.ZLibrary!=="undefined")this.initialize();
@@ -71,7 +71,7 @@ var Citador = (() => {
   initialize() {
 	({PluginUpdater, WebpackModules, Tooltip, Modals, ReactTools, ContextMenu, Patcher, Settings, PluginUtilities, DiscordAPI} = ZLibrary);
     let self = this;
-    PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), "https://raw.githubusercontent.com/nirewen/Citador/master/Citador.plugin.js");
+    PluginUpdater.checkForUpdate(this.getName(), this.getVersion(), "https://raw.githubusercontent.com/NightWolf1038/Citador/master/Citador.plugin.js");
     this.MessageParser     = WebpackModules.findByUniqueProperties(["createBotMessage"]);
     this.MessageQueue      = WebpackModules.findByUniqueProperties(["enqueue"]);
     this.MessageController = WebpackModules.findByUniqueProperties(["sendClydeError"]);
@@ -80,7 +80,7 @@ var Citador = (() => {
     this.HistoryUtils      = WebpackModules.findByUniqueProperties(['transitionTo', 'replaceWith', 'getHistory']);
     this.moment            = WebpackModules.findByUniqueProperties(['parseZone']);
     this.initialized       = true;
-    this.quoteURL          = 'https://github.com/nirewen/Citador?';
+    this.quoteURL          = 'https://github.com/NightWolf1038/Citador?';
     this.CDN_URL           = 'https://cdn.discordapp.com/avatars/';
     this.ASSETS_URL        = 'https://discordapp.com';
   
